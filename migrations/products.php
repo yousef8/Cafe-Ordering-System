@@ -10,7 +10,8 @@ require "../utilities/db_connection.php";
 # Create categories table first
 $create_products_stmt = $conn->prepare("CREATE TABLE IF NOT EXISTS products (
     id int unsigned auto_increment primary key, 
-    name varchar(255),
+    name varchar(255) not null,
+    price decimal(10,2) not null,
     category_name varchar(255),
     image_url varchar(255),
     stock int unsigned,
