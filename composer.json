@@ -1,4 +1,11 @@
 {
+    "name": "mohamed/cafe-ordering-system",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Mohamed\\CafeOrderingSystem\\": "src/"
+        }
+    },
     "require": {
         "vlucas/phpdotenv": "^5.6"
     }
