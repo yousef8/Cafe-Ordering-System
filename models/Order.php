@@ -173,6 +173,35 @@ class OrderModel
             return false;
         }
     }
+
+    /**
+     * Filter orders by date range.
+     *
+     * @param string $from The start date of the date range (in YYYY-MM-DD format).
+     * @param string $to The end date of the date range (optional, defaults to current date).
+     * @return array|false An array of matched Order objects, or false on failure.
+     */
+    public function filterByDateRange(string $from, ?string $to = null): array|false
+    {
+        try {
+            // If $to is not provided, set it to the current date
+            if ($to === null) {
+                $to = date('Y-m-d H:i:s');
+            }
+
+            $stmt = $this->conn->prepare("SELECT * FROM orders WHERE create_date BETWEEN :from AND :to");
+            $stmt->bindValue(':from', $from, PDO::PARAM_STR);
+            $stmt->bindValue(':to', $to, PDO::PARAM_STR);
+            $stmt->execute();
+
+            // Fetch results as Order objects
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $this->last_error_message = $e->getMessage();
+            return false;
+        }
+    }
+
     public function delete(int $id): bool
     {
         try {
