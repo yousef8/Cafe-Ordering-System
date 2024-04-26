@@ -40,6 +40,25 @@ $orders = new OrderModel($conn);
 
             return $result;
         }
+
+        function getCancelMenu(array $order): string
+        {
+            $options = [
+                0 => "NO",
+                1 => "YES"
+            ];
+
+            $is_cancelled = $order['is_cancelled'] ?? 'no';
+            $result = '<select class="form-select" aria-label="Default select example"' . "onchange=" . "submitCancelMenu(" . $order['user_id'] . "," . $order['id'] . "," . "this)>";
+            foreach ($options as $value => $label) {
+                $selected = ($is_cancelled === $value) ? 'selected' : '';
+                $result .= "<option value='$value' $selected>$label</option>";
+            }
+            $result .= '</select>';
+
+            return $result;
+        }
+
         ?>
 
         <?php foreach ($orders->getAll() as $idx => $order) : ?>
@@ -63,7 +82,8 @@ $orders = new OrderModel($conn);
                         <td>
                             <?php echo getActionsMenu($order); ?>
                         </td>
-                        <td> <?php echo $order['is_cancelled'] ? 'Yes' : 'No' ?> </td>
+                        <!-- <td> <?php echo $order['is_cancelled'] ? 'Yes' : 'No' ?> </td> -->
+                        <td> <?php echo getCancelMenu($order) ?> </td>
                     </tr>
                 </tbody>
             </table>
@@ -74,6 +94,12 @@ $orders = new OrderModel($conn);
         function submitActionsMenu(userId, orderId, selectElement) {
             var selectedStatus = selectElement.value;
             var url = `/Cafe-Ordering-System/controllers/admins/orders/change-shipping-status.php?order_id=${orderId}&user_id=${userId}&status=${selectedStatus}`;
+            window.location.href = url;
+        }
+
+        function submitCancelMenu(userId, orderId, selectElement) {
+            var selectedStatus = selectElement.value;
+            var url = `/Cafe-Ordering-System/controllers/admins/orders/change-cancel-status.php?order_id=${orderId}&user_id=${userId}&status=${selectedStatus}`;
             window.location.href = url;
         }
     </script>
