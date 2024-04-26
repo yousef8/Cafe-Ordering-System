@@ -47,5 +47,26 @@ class ProductController
         return $this->product->getProduct($productId);
     }
 
+    
+
+    public function delete($productId)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            if ($this->product->deleteProduct($productId)) {
+                echo "Product deleted successfully.";
+            } else {
+                echo "Failed to delete product.";
+            }
+        } else {
+            $product = $this->product->getProduct($productId);
+            if ($product) {
+                include 'views/products/delete.php';
+            } else {
+                echo "Product not found.";
+            }
+        }
+    }
+
+
 }
 ?>
