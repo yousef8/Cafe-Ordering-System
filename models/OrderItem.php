@@ -104,13 +104,8 @@ class OrderItemModel
             $stmt = $this->conn->prepare($sql);
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             foreach ($fieldsToValues as $field => $value) {
-                $paramType = PDO::PARAM_STR;
-                if ($field == "user_id" || $field == "total_price") {
-                    $paramType = PDO::PARAM_INT;
-                }
-                $stmt->bindValue(":$field", $value, $paramType);
+                $stmt->bindValue(":$field", $value, PDO::PARAM_INT);
             }
-
             return $stmt->execute();
         } catch (PDOException $e) {
             $this->last_error_message = $e->getMessage();
