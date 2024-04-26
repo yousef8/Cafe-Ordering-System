@@ -70,9 +70,6 @@ public function updateProduct($productId, $data)
         $product = $stmt->fetch(PDO::FETCH_ASSOC);
         
         return $product ? $product : null;
-    }
-
-
-   
+    }   
 }
 ?>

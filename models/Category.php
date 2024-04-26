@@ -26,9 +26,6 @@ class Category
             return false;
         }
     }
-
-   
-
     
 }
 ?>
