@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../../utilities/db_connection.php';
-require_once __DIR__ . '/../../controllers/productController.php';
+require_once __DIR__ . '/../../../utilities/db_connection.php';
+require_once __DIR__ . '/../../../controllers/productController.php';
 
 $productController = new ProductController($conn);
 
