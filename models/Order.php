@@ -43,12 +43,17 @@ class OrderModel
 
             $sql = "INSERT INTO orders ($fields) VALUES ($values)";
             $int_fields = ['user_id', 'total_price'];
+            $bool_fields = ["is_cancelled"];
 
             $stmt = $this->conn->prepare($sql);
             foreach ($fieldsToValues as $field => $value) {
                 $paramType = PDO::PARAM_STR;
                 if (in_array($field, $int_fields)) {
                     $paramType = PDO::PARAM_INT;
+                }
+
+                if (in_array($field, $bool_fields)) {
+                    $paramType = PDO::PARAM_BOOL;
                 }
                 $stmt->bindValue(":$field", $value, $paramType);
             }
@@ -109,6 +114,8 @@ class OrderModel
             foreach ($fieldsToValues as $field => $value) {
                 $setClauses[] = "$field = :$field";
             }
+            $int_fields = ["user_id", "total_price"];
+            $bool_fields = ["is_cancelled"];
 
             $sql = "UPDATE orders SET " . implode(', ', $setClauses) . " WHERE id = :id";
 
@@ -116,13 +123,51 @@ class OrderModel
             $stmt->bindValue(':id', $id, PDO::PARAM_INT);
             foreach ($fieldsToValues as $field => $value) {
                 $paramType = PDO::PARAM_STR;
-                if ($field == "user_id" || $field == "total_price") {
+                if (in_array($field, $int_fields)) {
                     $paramType = PDO::PARAM_INT;
+                }
+
+                if (in_array($field, $bool_fields)) {
+                    $paramType = PDO::PARAM_BOOL;
                 }
                 $stmt->bindValue(":$field", $value, $paramType);
             }
 
             return $stmt->execute();
+        } catch (PDOException $e) {
+            $this->last_error_message = $e->getMessage();
+            return false;
+        }
+    }
+
+    public function where(array $fieldsToValues): array|false
+    {
+        try {
+            $setClauses = [];
+            foreach ($fieldsToValues as $field => $value) {
+                $setClauses[] = "$field = :$field";
+            }
+
+            $int_fields = ["user_id", "total_price"];
+            $bool_fields = ["is_cancelled"];
+
+            $sql = "SELECT * FROM orders WHERE " . implode(' and ', $setClauses);
+
+            $stmt = $this->conn->prepare($sql);
+            foreach ($fieldsToValues as $field => $value) {
+                $paramType = PDO::PARAM_STR;
+                if (in_array($field, $int_fields)) {
+                    $paramType = PDO::PARAM_INT;
+                }
+
+                if (in_array($field, $bool_fields)) {
+                    $paramType = PDO::PARAM_BOOL;
+                }
+                $stmt->bindValue(":$field", $value, $paramType);
+            }
+
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             $this->last_error_message = $e->getMessage();
             return false;
