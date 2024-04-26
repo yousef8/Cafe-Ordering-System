@@ -25,6 +25,11 @@ class ProductController
         }
     }
 
+     public function getAllProducts()
+    {
+        return $this->product->getAllProducts();
+    }
+
    
 }
 

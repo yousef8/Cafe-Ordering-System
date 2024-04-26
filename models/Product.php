@@ -31,6 +31,19 @@ class Product
         }
     }
 
+    public function getAllProducts()
+{
+    $stmt = $this->conn->prepare("SELECT * FROM products");
+    if ($stmt->execute()) {
+        $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $products ? $products : null;
+    } else {
+        $this->lastErrorMessage = "Failed to fetch products.";
+        return false;
+    }
+}
+
+
    
 }
 ?>
