@@ -57,13 +57,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $targetDir = "../../../uploads-product/";
     $targetFile = $targetDir . basename($_FILES["image"]["name"]);
+    $fileName = basename($_FILES["image"]["name"]);
     
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
         $data = [
             'name' => $_POST['name'],
             'price' => $_POST['price'],
             'category_name' => $_POST['category_name'],
-            'image_url' => $targetFile,
+            'image_url' => $fileName,
             'stock' => $_POST['stock']
         ];
         
