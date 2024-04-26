@@ -52,7 +52,6 @@ $orders = new OrderModel($conn);
                         <th scope="col">Delivery Date</th>
                         <th scope="col">Shipping Status</th>
                         <th scope="col">Cancelled</th>
-                        <th scope="col">Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,11 +60,10 @@ $orders = new OrderModel($conn);
                         <td><?php echo $order['user_id'] ?></td>
                         <td><?php echo $order['create_date'] ?></td>
                         <td><?php echo $order['delivery_date'] ?? "Not yet delivered" ?></td>
-                        <td><?php echo $order['shipping_status'] ?></td>
-                        <td> <?php echo $order['is_cancelled'] ? 'Yes' : 'No' ?> </td>
                         <td>
                             <?php echo getActionsMenu($order); ?>
                         </td>
+                        <td> <?php echo $order['is_cancelled'] ? 'Yes' : 'No' ?> </td>
                     </tr>
                 </tbody>
             </table>

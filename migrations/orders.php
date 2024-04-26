@@ -12,7 +12,7 @@ $create_orders_stmt = $conn->prepare("CREATE TABLE IF NOT EXISTS orders (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     total_price DECIMAL(10, 2),
     create_date DATETIME DEFAULT CURRENT_TIMESTAMP,
-    delivery_date DATE,
+    delivery_date DATETIME,
     shipping_status ENUM('processing', 'out-for-delivery', 'delivered') DEFAULT 'processing',
     is_cancelled BOOLEAN DEFAULT FALSE,
     note VARCHAR(255),
