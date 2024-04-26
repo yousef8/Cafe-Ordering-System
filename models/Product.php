@@ -43,6 +43,35 @@ class Product
     }
 }
 
+public function updateProduct($productId, $data)
+    {
+        $stmt = $this->conn->prepare("UPDATE products SET name = ?, price = ?, category_name = ?, image_url = ?, stock = ? WHERE id = ?");
+        
+        $stmt->bindParam(1, $data['name']);
+        $stmt->bindParam(2, $data['price']);
+        $stmt->bindParam(3, $data['category_name']);
+        $stmt->bindParam(4, $data['image_url']);
+        $stmt->bindParam(5, $data['stock']);
+        $stmt->bindParam(6, $productId);
+        
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            $this->lastErrorMessage = "Failed to update product.";
+            return false;
+        }
+    }
+
+    public function getProduct($productId)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM products WHERE id = ?");
+        $stmt->bindParam(1, $productId);
+        $stmt->execute();
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        
+        return $product ? $product : null;
+    }
+
 
    
 }

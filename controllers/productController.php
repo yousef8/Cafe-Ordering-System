@@ -30,7 +30,22 @@ class ProductController
         return $this->product->getAllProducts();
     }
 
-   
-}
+    public function update($productId, $data)
+    {
+        if (!isset($data['name'], $data['price'], $data['category_name'], $data['image_url'], $data['stock'])) {
+            return false;
+        }
 
+        if ($this->product->updateProduct($productId, $data)) {
+            return true; 
+        } else {
+            return false; 
+        }
+    }
+
+    public function getProductById($productId){
+        return $this->product->getProduct($productId);
+    }
+
+}
 ?>
