@@ -33,6 +33,18 @@ class CategoryController
     {
         return $this->category->updateCategory($oldName, $newName);
     }
+
+
+
+    public function delete($name)
+{
+    if ($this->category->deleteCategory($name)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
    
 }
 ?>

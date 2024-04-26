@@ -68,6 +68,14 @@ public function getCategoryByName($name)
     }
 
 
+    public function deleteCategory($name)
+{
+    $stmt = $this->conn->prepare("DELETE FROM categories WHERE name = ?");
+    return $stmt->execute([$name]);
+}
+
+
+
 
 
    
