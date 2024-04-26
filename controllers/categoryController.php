@@ -19,6 +19,20 @@ class CategoryController
         }
     }
 
+    public function getAllCategories()
+    {
+        return $this->category->getAllCategories();
+    }
+
+    public function getCategoryByName($name)
+    {
+        return $this->category->getCategoryByName($name);
+    }
+
+    public function updateCategory($oldName, $newName)
+    {
+        return $this->category->updateCategory($oldName, $newName);
+    }
    
 }
 ?>
