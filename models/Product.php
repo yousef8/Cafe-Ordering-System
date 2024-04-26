@@ -70,9 +70,22 @@ public function updateProduct($productId, $data)
         $product = $stmt->fetch(PDO::FETCH_ASSOC);
         
         return $product ? $product : null;
+    }   
+
+
+    public function deleteProduct($productId)
+    {
+        $stmt = $this->conn->prepare("DELETE FROM products WHERE id = ?");
+        
+        $stmt->bindParam(1, $productId);
+        
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            $this->lastErrorMessage = "Failed to delete product.";
+            return false;
+        }
     }
 
-
-   
 }
 ?>
