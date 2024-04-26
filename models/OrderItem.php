@@ -112,6 +112,28 @@ class OrderItemModel
             return false;
         }
     }
+
+    public function where(array $fieldsToValues): array|false
+    {
+        try {
+            $setClauses = [];
+            foreach ($fieldsToValues as $field => $value) {
+                $setClauses[] = "$field = :$field";
+            }
+
+            $sql = "SELECT * FROM order_items WHERE " . implode(' and ', $setClauses);
+
+            $stmt = $this->conn->prepare($sql);
+            foreach ($fieldsToValues as $field => $value) {
+                $stmt->bindValue(":$field", $value, PDO::PARAM_INT);
+            }
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $this->last_error_message = $e->getMessage();
+            return false;
+        }
+    }
     public function delete(int $id): bool
     {
         try {
