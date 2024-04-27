@@ -10,16 +10,18 @@
             background-color: #333;
             color: #fff;
             padding: 10px;
+            display: flex;
+            justify-content: space-between;
         }
 
         nav ul {
             list-style-type: none;
             padding: 0;
             margin: 0;
+            display: flex;
         }
 
         nav ul li {
-            display: inline;
             margin-right: 20px;
         }
 
@@ -44,17 +46,15 @@
                 'Users' => 'users.php',
                 'Manual Orders' => 'manual_orders.php',
                 'Checks' => 'checks.php',
-                'Admin' => 'admin.php'
             );
 
             foreach ($links as $title => $url) {
-                if ($title == 'Admin') {
-                    echo "<li><a href=\"$url\"><i class=\"fas fa-user-cog fa-admin\"></i>$title</a></li>";
-                } else {
-                    echo "<li><a href=\"$url\">$title</a></li>";
-                }
+                echo "<li><a href=\"$url\">$title</a></li>";
             }
             ?>
+        </ul>
+        <ul>
+            <li><a href="admin.php"><i class="fas fa-user-cog fa-admin"></i>Admin</a></li>
         </ul>
     </nav>
 </body>
