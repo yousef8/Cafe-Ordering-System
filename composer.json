@@ -1,4 +1,12 @@
 {
+    "name": "dell/cafe-ordering-system",
+    "type": "project",
+    "authors": [
+        {
+            "name": "omniagad25",
+            "email": "omniagad25@gmail.com"
+        }
+    ],
     "require": {
         "vlucas/phpdotenv": "^5.6"
     }
