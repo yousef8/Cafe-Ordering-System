@@ -1,20 +1,16 @@
 <?php
-require_once __DIR__ . '/../../utilities/db_connection.php';
-require_once __DIR__ . '/../../controllers/productController.php';
+require_once __DIR__ . '/../../../utilities/db_connection.php';
+require_once __DIR__ . '/../../../controllers/productController.php';
 
 $productController = new ProductController($conn);
 
-// Initialize error and success messages
 $errorMessage = "";
 $successMessage = "";
 
-// Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $productId = $_POST['product_id'];
 
     $updatedData = array();
-
-    // Check and set updated data from form fields
     if (isset($_POST['name'])) {
         $updatedData['name'] = $_POST['name'];
     }
@@ -31,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $updatedData['stock'] = $_POST['stock'];
     }
 
-    // Update product
     if (!empty($updatedData)) {
         if ($productController->update($productId, $updatedData)) {
             $successMessage = "Product updated successfully.";
@@ -43,7 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Check if product_id is provided
 if (!isset($_POST['product_id'])) {
     header("Location: get.php");
     exit();
@@ -51,12 +45,9 @@ if (!isset($_POST['product_id'])) {
 
 $productId = $_POST['product_id'];
 
-// Retrieve product information
 $product = $productController->getProductById($productId);
 
-// Check if product exists
 if (!$product) {
-    // Redirect to product list with error message
     header("Location: get.php?error=product_not_found");
     exit();
 }

@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../../utilities/db_connection.php';
-require_once __DIR__ . '/../../controllers/productController.php';
+require_once __DIR__ . '/../../../utilities/db_connection.php';
+require_once __DIR__ . '/../../../controllers/productController.php';
 
 $productController = new ProductController($conn);
 $products = $productController->getAllProducts();
@@ -33,7 +33,7 @@ $products = $productController->getAllProducts();
                     <td><?php echo $product['name']; ?></td>
                     <td><?php echo $product['price']; ?></td>
                     <td><?php echo $product['category_name']; ?></td>
-                    <td><img src="<?php echo $product['image_url']; ?>" alt="Product Image" style="width: 100px;"></td>
+                    <td><img src="../../../uploads-product/<?php echo $product['image_url']; ?>" alt="Product Image" style="width: 100px;"></td>
                     <td><?php echo $product['stock']; ?></td>
                     <td>
                         <form action="update.php" method="POST">

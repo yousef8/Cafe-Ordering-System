@@ -19,7 +19,7 @@
         <label for="category_name">Category:</label>
         <select name="category_name" id="category_name" required>
             <?php
-            require_once __DIR__ . '/../../utilities/db_connection.php';
+            require_once __DIR__ . '/../../../utilities/db_connection.php';
             $stmt = $conn->prepare("SELECT name FROM categories");
             $stmt->execute();
             $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -49,21 +49,22 @@
     </form>
 
     <?php
-require_once __DIR__ . '/../../utilities/db_connection.php';
-require_once __DIR__ . '/../../controllers/productController.php';
+require_once __DIR__ . '/../../../utilities/db_connection.php';
+require_once __DIR__ . '/../../../controllers/productController.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $productController = new ProductController($conn);
     
-    $targetDir = "../../uploads-product/";
+    $targetDir = "../../../uploads-product/";
     $targetFile = $targetDir . basename($_FILES["image"]["name"]);
+    $fileName = basename($_FILES["image"]["name"]);
     
     if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
         $data = [
             'name' => $_POST['name'],
             'price' => $_POST['price'],
             'category_name' => $_POST['category_name'],
-            'image_url' => $targetFile,
+            'image_url' => $fileName,
             'stock' => $_POST['stock']
         ];
         
