@@ -42,5 +42,13 @@ class RoomController
         return $stmt->execute();
     }
 
+    public function deleteRoom($name)
+    {
+        $query = "DELETE FROM rooms WHERE name = :name";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':name', $name);
+        return $stmt->execute();
+    }
+
 }
 ?>
