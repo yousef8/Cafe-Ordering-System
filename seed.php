@@ -13,7 +13,6 @@ $orders = [
         'user_id' => 1,
         'total_price' => 100,
         'create_date' => '2024-04-26 10:00:00',
-        'delivery_date' => '2024-04-30',
         'shipping_status' => 'processing',
         'is_cancelled' => false,
         'note' => 'Order 1'
@@ -22,7 +21,6 @@ $orders = [
         'user_id' => 2,
         'total_price' => 150,
         'create_date' => '2024-04-26 11:00:00',
-        'delivery_date' => '2024-05-01',
         'shipping_status' => 'out-for-delivery',
         'is_cancelled' => false,
         'note' => 'Order 2'
@@ -31,7 +29,6 @@ $orders = [
         'user_id' => 3,
         'total_price' => 200,
         'create_date' => '2024-04-26 12:00:00',
-        'delivery_date' => '2024-05-02',
         'shipping_status' => 'delivered',
         'is_cancelled' => false,
         'note' => 'Order 3'
@@ -102,5 +99,3 @@ foreach ($orders as $order) {
 }
 
 echo "Seed data inserted successfully!\n";
-
-
