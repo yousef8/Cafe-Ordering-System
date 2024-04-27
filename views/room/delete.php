@@ -7,7 +7,7 @@ $roomController = new RoomController($conn);
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['name'])) {
     $roomName = $_POST['name'];
     
-    if ($roomController->deleteRoom($roomName)) { // Change the method name to deleteRoom()
+    if ($roomController->deleteRoom($roomName)) { 
         echo "Room deleted successfully.";
     } else {
         echo "Failed to delete room.";
