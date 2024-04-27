@@ -12,7 +12,7 @@
             padding: 10px;
             display: flex;
             justify-content: space-between;
-            align-items: center; /* Vertically center items */
+            align-items: center; 
         }
 
         nav ul {
