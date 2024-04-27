@@ -12,6 +12,7 @@
             padding: 10px;
             display: flex;
             justify-content: space-between;
+            align-items: center; /* Vertically center items */
         }
 
         nav ul {
@@ -28,9 +29,11 @@
         nav ul li a {
             color: #fff;
             text-decoration: none;
+            display: flex; 
+            align-items: center; 
         }
 
-        .fa-admin {
+        .fa-user {
             font-size: 1.2em;
             margin-right: 5px;
         }
@@ -51,7 +54,7 @@
             ?>
         </ul>
         <ul>
-            <li><a href="admin.php"><i class="fas fa-user fa-admin"></i>UserName</a></li>
+            <li><a href="user.php"><i class="fas fa-user fa-user"></i>UserName</a></li>
         </ul>
     </nav>
 </body>
