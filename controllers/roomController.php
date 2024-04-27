@@ -33,5 +33,14 @@ class RoomController
     {
         return $this->room->getRoomByName($name);
     }
+    public function updateRoom($oldName, $newName)
+    {
+        $query = "UPDATE rooms SET name = :newName WHERE name = :oldName";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':oldName', $oldName);
+        $stmt->bindParam(':newName', $newName);
+        return $stmt->execute();
+    }
+
 }
 ?>
