@@ -87,5 +87,16 @@ public function updateProduct($productId, $data)
         }
     }
 
+    public function searchProducts($keyword)
+    {
+        $query = "SELECT * FROM products WHERE name LIKE :keyword OR category_name LIKE :keyword";
+        $stmt = $this->conn->prepare($query);
+        $keyword = '%' . $keyword . '%'; 
+        $stmt->bindParam(':keyword', $keyword);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
 ?>

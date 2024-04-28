@@ -66,7 +66,15 @@ class ProductController
             }
         }
     }
+   
 
+
+    public function search($keyword)
+    {
+        $results = $this->product->searchProducts($keyword);
+
+        return $results;
+    }
 
 }
 ?>
