@@ -4,9 +4,9 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 ?>
 <?php
-require_once '../utilities/db_connection.php';
-require_once '../models/user.php';
-require_once '../models/Order.php';
+require_once '../../../utilities/db_connection.php';
+require_once '../../../models/user.php';
+require_once '../../../models/Order.php';
 
 $users_table = new User($conn);
 $orders_table = new OrderModel($conn);
@@ -31,12 +31,14 @@ foreach ($users_table->getAllUsers() as $idx => $user) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <title>Checks</title>
 </head>
 
 <body>
-    <div class="container-fluid mt-4">
-        <form class="w-25" action="../controllers/admins/checks/filter.php" method="post">
+    <?php require_once "../admin_navbar.php" ?>
+    <div class="container-fluid">
+        <form class="w-25 mt-4" action="../controllers/admins/checks/filter.php" method="post">
             <div class="container-fluid d-flex flex-row justify-content-around">
                 <div>
                     <label for="from">From</label>
