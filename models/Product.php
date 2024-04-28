@@ -117,18 +117,19 @@ public function updateProduct($productId, $data)
 
     
 
-    private function getProductByName($name)
-    {
-        $stmt = $this->conn->prepare("SELECT * FROM products WHERE name = ?");
-        $stmt->bindParam(1, $name);
-        
-        if ($stmt->execute()) {
-            $product = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $product ? $product : null;
-        } else {
-            return null;
-        }
+    public function getProductByName($name)
+{
+    $stmt = $this->conn->prepare("SELECT * FROM products WHERE name = ?");
+    $stmt->bindParam(1, $name);
+    
+    if ($stmt->execute()) {
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $product ? $product : null;
+    } else {
+        return null;
     }
+}
+
 
 }
 ?>
