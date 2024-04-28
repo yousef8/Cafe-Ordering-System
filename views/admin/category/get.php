@@ -6,7 +6,6 @@ $categoryController = new CategoryController($conn);
 $categories = $categoryController->getAllCategories();
 ?>
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,31 +18,36 @@ $categories = $categoryController->getAllCategories();
     <h1>Categories List</h1>
     <a href="create.php" class="add"><button type="button">Add Category</button></a>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($categories as $category): ?>
+    
+        <table>
+            <thead>
                 <tr>
-                    <td><?php echo $category['name']; ?></td>
-                    <td>
-                        <form action="update.php" method="POST">
-                            <input type="hidden" name="name" value="<?php echo $category['name']; ?>">
-                            <button type="submit">Update</button>
-                        </form>
-
-                        <form action="delete.php" method="POST">
-                            <input type="hidden" name="name" value="<?php echo $category['name']; ?>">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
+                    <th>Name</th>
+                    <th>Actions</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            <?php if (empty($categories)): ?>
+                <tr><td colspan="6">No Categories have been added yet.</td></tr>
+    <?php else: ?>
+                <?php foreach ($categories as $category): ?>
+                    <tr>
+                        <td><?php echo $category['name']; ?></td>
+                        <td>
+                            <form action="update.php" method="POST">
+                                <input type="hidden" name="name" value="<?php echo $category['name']; ?>">
+                                <button type="submit">Update</button>
+                            </form>
+
+                            <form action="delete.php" method="POST">
+                                <input type="hidden" name="name" value="<?php echo $category['name']; ?>">
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    <?php endif; ?>
 </body>
 </html>
