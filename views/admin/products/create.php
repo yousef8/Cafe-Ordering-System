@@ -53,37 +53,36 @@
         </div>
     </form>
     <div class="form-message">
+        <?php
+        require_once __DIR__ . '/../../../utilities/db_connection.php';
+        require_once __DIR__ . '/../../../controllers/productController.php';
 
-    <?php
-    require_once __DIR__ . '/../../../utilities/db_connection.php';
-    require_once __DIR__ . '/../../../controllers/productController.php';
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $productController = new ProductController($conn);
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $productController = new ProductController($conn);
+            $targetDir = "../../../uploads-product/";
+            $targetFile = $targetDir . basename($_FILES["image"]["name"]);
+            $fileName = basename($_FILES["image"]["name"]);
 
-        $targetDir = "../../../uploads-product/";
-        $targetFile = $targetDir . basename($_FILES["image"]["name"]);
-        $fileName = basename($_FILES["image"]["name"]);
+            if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
+                $data = [
+                    'name' => $_POST['name'],
+                    'price' => $_POST['price'],
+                    'category_name' => $_POST['category_name'],
+                    'image_url' => $fileName,
+                    'stock' => $_POST['stock']
+                ];
 
-        if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
-            $data = [
-                'name' => $_POST['name'],
-                'price' => $_POST['price'],
-                'category_name' => $_POST['category_name'],
-                'image_url' => $fileName,
-                'stock' => $_POST['stock']
-            ];
-
-            if ($productController->create($data)) {
-                echo "<p>Product created successfully.</p>";
+                if ($productController->create($data)) {
+                    echo "<p>Product created successfully.</p>";
+                } else {
+                    echo "<p>Failed to create product. The product name already exists.</p>";
+                }
             } else {
-                echo "<p>Failed to create product.</p>";
+                echo "Sorry, there was an error uploading your file.";
             }
-        } else {
-            echo "Sorry, there was an error uploading your file.";
         }
-    }
-    ?>
+        ?>
     </div>
 </body>
 </html>
