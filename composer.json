@@ -1,6 +1,11 @@
 {
-    "name": "dell/cafe-ordering-system",
+    "name": "osad/cafe-ordering-system",
     "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Mohamed\\CafeOrderingSystem\\": "src/"
+        }
+    },
     "authors": [
         {
             "name": "omniagad25",

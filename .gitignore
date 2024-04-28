@@ -475,3 +475,10 @@ composer.lock
 
 # env
 .env
+
+# uploaded images
+/uploads-product/*
+!/uploads-product/README.md
+
+/uploads-user/*
+!/uploads-user/README.md
