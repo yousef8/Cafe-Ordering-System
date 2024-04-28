@@ -1,22 +1,25 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create Category</title>
+    <link rel="stylesheet" href="create.css">
 </head>
 <body>
     <h1>Create Category</h1>
     <form action="" method="post">
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required><br>
-        <button type="submit">Create</button>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" name="name" id="name" required>
+        </div>
+        <div class="form-group">
+            <button type="submit">Create</button>
+        </div>
     </form>
 
     <?php 
     require_once __DIR__ . '/../../../utilities/db_connection.php';
-
     require_once __DIR__ . '/../../../controllers/categoryController.php';
 
     $categoryController = new CategoryController($conn);
