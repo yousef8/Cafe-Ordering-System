@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../../utilities/db_connection.php';
-require_once __DIR__ . '/../../controllers/user_controller.php';
+require_once __DIR__ . '/../../../utilities/db_connection.php';
+require_once __DIR__ . '/../../../controllers/user_controller.php';
 
 $userController = new UserController($conn);
 
