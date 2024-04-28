@@ -8,8 +8,9 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <?php
                     $links = array(
-                        'Home' => '/Cafe-Ordering-System/views/admin/dashboard.php',
-                        'Products' => '/Cafe-Ordering-System/views/admin/products/create.php',
+                        'Products' => '/Cafe-Ordering-System/views/admin/products/get.php',
+                        'Categories' => '/Cafe-Ordering-System/views/admin/category/get.php',
+                        'Rooms' => '/Cafe-Ordering-System/views/admin/room/get.php',
                         'Users' => '/Cafe-Ordering-System/views/admin/user/add_user.php',
                         'Manual Orders' => '#',
                         'Checks' => '#',

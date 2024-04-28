@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../../utilities/db_connection.php';
-require_once __DIR__ . '/../../controllers/roomController.php';
+require_once __DIR__ . '/../../../utilities/db_connection.php';
+require_once __DIR__ . '/../../../controllers/roomController.php';
 
 $roomController = new roomController($conn);
 $Rooms = $roomController->getAllRooms();
