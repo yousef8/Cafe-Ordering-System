@@ -11,6 +11,7 @@ error_reporting(E_ALL);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="form.css" >
     <title>Add User</title>
 </head>
 
@@ -34,7 +35,8 @@ error_reporting(E_ALL);
         <input type="file" name="image" id="image" accept="image/*" required><br>
 
         <label for="room_name">Room:</label>
-        <input type="text" name="room_name" id="room_name" required><br>
+        <!-- <input type="text" name="room_name" id="room_name" required><br> -->
+        <?php require_once __DIR__ . "/../room/dropDown.php"; ?>
 
         <label for="is_admin">Is Admin:</label>
         <input type="checkbox" name="is_admin" id="is_admin"><br>

@@ -49,23 +49,23 @@ class User
     }
 
     public function updateUser($userId, $data)
-    {
-        $stmt = $this->conn->prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?,  image_url = ?, room_name = ?, is_admin = ? WHERE id = ?");
-        
-        $stmt->bindParam(1, $data['first_name']);
-        $stmt->bindParam(2, $data['last_name']);
-        $stmt->bindParam(3, $data['email']);
-        $stmt->bindParam(5, $data['image_url']);
-        $stmt->bindParam(6, $data['room_name']);
-        $stmt->bindParam(7, $data['is_admin']);
-        $stmt->bindParam(8, $userId);
-        
-        if ($stmt->execute()) {
-            return true;
-        } else {
-            return false;
-        }
+{
+    $stmt = $this->conn->prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?, image_url = ?, room_name = ? WHERE id = ?");
+    
+    $stmt->bindParam(1, $data['first_name']);
+    $stmt->bindParam(2, $data['last_name']);
+    $stmt->bindParam(3, $data['email']);
+    $stmt->bindParam(4, $data['image_url']);
+    $stmt->bindParam(5, $data['room_name']);
+    $stmt->bindParam(6, $userId);
+    
+    if ($stmt->execute()) {
+        return true;
+    } else {
+        return false;
     }
+}
+
 
     public function deleteUser($userId)
     {
