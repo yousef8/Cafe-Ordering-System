@@ -1,6 +1,6 @@
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
-            <a class="navbar-brand" href="./dashboard.php">The Cafe</a>
+            <a class="navbar-brand" href="/Cafe-Ordering-System/views/admin/dashboard.php">The Cafe</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -12,8 +12,8 @@
                         'Categories' => '/Cafe-Ordering-System/views/admin/category/get.php',
                         'Rooms' => '/Cafe-Ordering-System/views/admin/room/get.php',
                         'Users' => '/Cafe-Ordering-System/views/admin/user/add_user.php',
-                        'Manual Orders' => '#',
-                        'Checks' => '#',
+                        'Manual Orders' => '/Cafe-Ordering-System/views/admin/orders/admin_orders.php',
+                        'Checks' => '/Cafe-Ordering-System/views/admin/orders/checks.php',
                     );
 
                     foreach ($links as $title => $url) {
