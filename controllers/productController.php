@@ -25,10 +25,16 @@ class ProductController
         }
     }
 
-     public function getAllProducts()
-    {
-        return $this->product->getAllProducts();
-    }
+    //  public function getAllProducts()
+    // {
+    //     return $this->product->getAllProducts();
+    // }
+
+    public function getAllProducts($page = 1, $perPage = 10)
+{
+    return $this->product->getAllProducts($page, $perPage);
+}
+
 
     public function update($productId, $data)
     {
@@ -65,6 +71,11 @@ class ProductController
                 echo "Product not found.";
             }
         }
+    }
+
+    public function getTotalProductsCount()
+    {
+        return $this->product->getTotalProductsCount();
     }
 
 
