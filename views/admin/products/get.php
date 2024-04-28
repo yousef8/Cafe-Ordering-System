@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../../controllers/productController.php';
 $productController = new ProductController($conn);
 
 $page = isset($_GET['page']) ? $_GET['page'] : 1;
-$perPage = 2;
+$perPage = 8;
 $products = $productController->getAllProducts($page, $perPage);
 
 ?>

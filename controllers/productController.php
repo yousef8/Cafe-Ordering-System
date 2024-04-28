@@ -9,14 +9,10 @@ class ProductController
     public function __construct(PDO $conn)
     {
         $this->product = new Product($conn);
-        $this->conn = $conn; 
+        // $this->conn = $conn; 
 
     }
     
-
-   
-
-
 
     public function create($data)
     {
@@ -35,17 +31,22 @@ class ProductController
         }
     }
 
-    private function getProductByName($name)
-    {
-        $stmt = $this->conn->prepare("SELECT * FROM products WHERE name = ?");
-        $stmt->bindParam(1, $name);
+    // private function getProductByName($name)
+    // {
+    //     $stmt = $this->conn->prepare("SELECT * FROM products WHERE name = ?");
+    //     $stmt->bindParam(1, $name);
         
-        if ($stmt->execute()) {
-            $product = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $product ? $product : null;
-        } else {
-            return null;
-        }
+    //     if ($stmt->execute()) {
+    //         $product = $stmt->fetch(PDO::FETCH_ASSOC);
+    //         return $product ? $product : null;
+    //     } else {
+    //         return null;
+    //     }
+    // }
+
+    public function getProductByName($name)
+    {
+        return $this->product->getProductByName($name);
     }
 
    
