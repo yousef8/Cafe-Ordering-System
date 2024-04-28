@@ -18,7 +18,7 @@ $products = $productController->getAllProducts();
 </head>
 
 <body>
-    <div class="container-lg">
+    <div class="container-fluid">
         <?php require_once __DIR__ . "/admin_navbar.php"; ?>
         <div class="dashboard">
             <div class="product-cards">
