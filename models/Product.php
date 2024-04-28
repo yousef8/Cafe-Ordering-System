@@ -78,18 +78,7 @@ public function updateProduct($productId, $data)
         return $product ? $product : null;
     }   
 
-    private function getProductByName($name)
-    {
-        $stmt = $this->conn->prepare("SELECT * FROM products WHERE name = ?");
-        $stmt->bindParam(1, $name);
-        
-        if ($stmt->execute()) {
-            $product = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $product ? $product : null;
-        } else {
-            return null;
-        }
-    }
+   
 
 
     public function deleteProduct($productId)
@@ -123,6 +112,22 @@ public function updateProduct($productId, $data)
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    
+
+    private function getProductByName($name)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM products WHERE name = ?");
+        $stmt->bindParam(1, $name);
+        
+        if ($stmt->execute()) {
+            $product = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $product ? $product : null;
+        } else {
+            return null;
+        }
     }
 
 }
