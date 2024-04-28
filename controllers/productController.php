@@ -9,13 +9,23 @@ class ProductController
     public function __construct(PDO $conn)
     {
         $this->product = new Product($conn);
+        $this->conn = $conn; 
+
     }
     
+
+   
+
+
 
     public function create($data)
     {
         if (!isset($data['name'], $data['price'], $data['category_name'], $data['image_url'], $data['stock'])) {
             return false;
+        }
+
+        if ($this->getProductByName($data['name'])) {
+            return false; 
         }
 
         if ($this->product->createProduct($data)) {
@@ -25,10 +35,23 @@ class ProductController
         }
     }
 
-    //  public function getAllProducts()
-    // {
-    //     return $this->product->getAllProducts();
-    // }
+    private function getProductByName($name)
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM products WHERE name = ?");
+        $stmt->bindParam(1, $name);
+        
+        if ($stmt->execute()) {
+            $product = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $product ? $product : null;
+        } else {
+            return null;
+        }
+    }
+
+   
+    
+   
+
 
     public function getAllProducts($page = 1, $perPage = 10)
 {

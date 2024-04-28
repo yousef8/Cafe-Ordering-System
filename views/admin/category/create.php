@@ -30,7 +30,7 @@
         if ($categoryController->create($name)) {
             echo "<p>Category created successfully.</p>";
         } else {
-            echo "<p>Failed to create category.</p>";
+            echo "<p>Failed to create category. The category name already exists.</p>";
         }
     }
     ?>
