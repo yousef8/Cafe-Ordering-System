@@ -31,17 +31,6 @@ class Product
         }
     }
 
-//     public function getAllProducts()
-// {
-//     $stmt = $this->conn->prepare("SELECT * FROM products");
-//     if ($stmt->execute()) {
-//         $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-//         return $products ? $products : null;
-//     } else {
-//         $this->lastErrorMessage = "Failed to fetch products.";
-//         return false;
-//     }
-// }
 
 public function getAllProducts($page = 1, $perPage = 10)
 {
@@ -110,6 +99,17 @@ public function updateProduct($productId, $data)
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row['total_count'];
+
+    }
+    public function searchProducts($keyword)
+    {
+        $query = "SELECT * FROM products WHERE name LIKE :keyword OR category_name LIKE :keyword";
+        $stmt = $this->conn->prepare($query);
+        $keyword = '%' . $keyword . '%'; 
+        $stmt->bindParam(':keyword', $keyword);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
 }

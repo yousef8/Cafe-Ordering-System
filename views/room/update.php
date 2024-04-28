@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../../../utilities/db_connection.php';
-require_once __DIR__ . '/../../../controllers/categoryController.php';
+require_once __DIR__ . '/../../utilities/db_connection.php';
+require_once __DIR__ . '/../../controllers/roomController.php';
 
-$categoryController = new CategoryController($conn);
+$roomController = new RoomController($conn);
 
 $errorMessage = "";
 $successMessage = "";
@@ -14,10 +14,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     if (!empty($oldName) && !empty($newName)) {
-        if ($categoryController->updateCategory($oldName, $newName)) {
-            $successMessage = "Category updated successfully.";
+        if ($roomController->updateRoom($oldName, $newName)) {
+            $successMessage = "Room updated successfully.";
         } else {
-            $errorMessage = "Failed to update Category.";
+            $errorMessage = "Failed to update Room.";
         }
     } 
 }
@@ -28,11 +28,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="create.css">
-    <title>Update Category</title>
+    <title>Update Room</title>
 </head>
 <body>
-    <h1>Update Category</h1>
+    <h1>Update Room</h1>
     <?php if (!empty($errorMessage)): ?>
     <p><?php echo $errorMessage; ?></p>
     <?php endif; ?>
@@ -44,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="new_name">New Name:</label>
         <input type="text" id="new_name" name="new_name" value="<?php echo isset($_POST['new_name']) ? htmlspecialchars($_POST['new_name']) : ''; ?>"><br>
         <button type="submit">Update</button>
-        <a href="get.php"><button type="button" class="back">Back</button></a>
+        <a href="get.php"><button type="button">Back</button></a>
     </form>
 </body>
 </html>

@@ -20,8 +20,12 @@ $products = $productController->getAllProducts($page, $perPage);
     <title>Product List</title>
 </head>
 <body>
+    
     <h1>Products List</h1>
+    <a href="create.php" class="add"><button type="button">Add Product</button></a>
+
     <table>
+
         <thead>
             <tr>
                 <th>Name</th>

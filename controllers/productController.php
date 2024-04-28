@@ -72,12 +72,20 @@ class ProductController
             }
         }
     }
+   
 
     public function getTotalProductsCount()
     {
         return $this->product->getTotalProductsCount();
     }
 
+
+    public function search($keyword)
+    {
+        $results = $this->product->searchProducts($keyword);
+
+        return $results;
+    }
 
 }
 ?>
