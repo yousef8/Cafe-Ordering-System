@@ -9,8 +9,8 @@
 
                 <?php
                 $links = array(
-                    'Home' => 'home.php',
-                    'MyOrders' => 'orders.php',
+                    'Home' => '/Cafe-Ordering-System/home.php',
+                    'MyOrders' => '#',
                 );
 
                 foreach ($links as $title => $url) {

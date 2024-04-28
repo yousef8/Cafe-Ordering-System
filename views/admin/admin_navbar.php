@@ -8,9 +8,9 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <?php
                     $links = array(
-                        'Home' => './dashboard.php',
-                        'Products' => './products/create.php',
-                        'Users' => './add_user.php',
+                        'Home' => '/Cafe-Ordering-System/views/admin/dashboard.php',
+                        'Products' => '/Cafe-Ordering-System/views/admin/products/create.php',
+                        'Users' => '/Cafe-Ordering-System/views/admin/user/add_user.php',
                         'Manual Orders' => '#',
                         'Checks' => '#',
                     );
