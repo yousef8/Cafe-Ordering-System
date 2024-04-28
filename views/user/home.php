@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <?php require_once __DIR__ . '/../Navbars/user.php'; ?>
+    <?php require_once __DIR__ . '/user_navbar.php'; ?>
     <h1>Products</h1>
     <div class="products-container">
         <?php
