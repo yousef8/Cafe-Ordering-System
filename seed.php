@@ -4,6 +4,7 @@ require_once './utilities/db_connection.php'; // Include your database connectio
 require_once './models/Order.php';
 require_once './models/OrderItem.php';
 require_once './models/OrderRoom.php';
+require_once './models/Room.php';
 
 
 
@@ -86,6 +87,7 @@ $orderItems = [
 
 $orderModel = new OrderModel($conn);
 $orderItemModel = new OrderItemModel($conn);
+$room = new Room($conn);
 
 foreach ($orders as $order) {
     $orderModel->create($order);
@@ -97,5 +99,43 @@ foreach ($orders as $order) {
         }
     }
 }
+
+$products = [
+    [
+        'name' => 'Product 1',
+        'price' => 50.00,
+        'category_name' => 'Category 1',
+        'image_url' => 'https://example.com/image1.jpg',
+        'stock' => 10
+    ],
+    [
+        'name' => 'Product 2',
+        'price' => 75.00,
+        'category_name' => 'Category 2',
+        'image_url' => 'https://example.com/image2.jpg',
+        'stock' => 20
+    ],
+    [
+        'name' => 'Product 3',
+        'price' => 100.00,
+        'category_name' => 'Category 1',
+        'image_url' => 'https://example.com/image3.jpg',
+        'stock' => 15
+    ],
+    // Add more products as needed
+];
+
+// Loop through the products and insert them into the database
+foreach ($products as $product) {
+    $insert_product_stmt = $conn->prepare("INSERT INTO products (name, price, category_name, image_url, stock) VALUES (:name, :price, :category_name, :image_url, :stock)");
+    $insert_product_stmt->execute([
+        'name' => $product['name'],
+        'price' => $product['price'],
+        'category_name' => $product['category_name'],
+        'image_url' => $product['image_url'],
+        'stock' => $product['stock']
+    ]);
+}
+
 
 echo "Seed data inserted successfully!\n";
