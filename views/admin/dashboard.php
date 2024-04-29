@@ -19,7 +19,7 @@ $products = $productController->getAllProducts();
 
 <body>
     <div class="container-fluid">
-        <?php require_once __DIR__ . "/admin_navbar.php"; ?>
+        <?php require_once __DIR__ . "/../user/user_navbar.php"; ?>
         <div class="dashboard">
             <div class="product-cards">
                 <?php foreach ($products as $product) : ?>
