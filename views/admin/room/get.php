@@ -2,10 +2,21 @@
 require_once __DIR__ . '/../../../utilities/db_connection.php';
 require_once __DIR__ . '/../../../controllers/roomController.php';
 
-$roomController = new roomController($conn);
-$Rooms = $roomController->getAllRooms();
-?>
+$roomController = new RoomController($conn);
 
+// Handle form submission for creating a room
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_room'])) {
+    $name = $_POST['name'];
+    if ($roomController->create($name)) {
+        echo "<p>Room created successfully.</p>";
+    } else {
+        echo "<p>Failed to create room.</p>";
+    }
+}
+
+// Retrieve all rooms
+$rooms = $roomController->getAllRooms();
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -15,11 +26,18 @@ $Rooms = $roomController->getAllRooms();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <title>Rooms List</title>
+    <title>Rooms Management</title>
 </head>
 
 <body>
     <?php require_once __DIR__ . "/../admin_navbar.php"; ?>
+    <h1>Create Room</h1>
+    <form action="" method="post">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name" required><br>
+        <button type="submit" name="create_room">Create</button>
+    </form>
+
     <h1>Rooms List</h1>
     <table>
         <thead>
@@ -29,7 +47,7 @@ $Rooms = $roomController->getAllRooms();
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($Rooms as $room) : ?>
+            <?php foreach ($rooms as $room) : ?>
                 <tr>
                     <td><?php echo $room['name']; ?></td>
                     <td>
@@ -37,7 +55,6 @@ $Rooms = $roomController->getAllRooms();
                             <input type="hidden" name="name" value="<?php echo $room['name']; ?>">
                             <button type="submit">Update</button>
                         </form>
-
                         <form action="delete.php" method="POST">
                             <input type="hidden" name="name" value="<?php echo $room['name']; ?>">
                             <button type="submit">Delete</button>
