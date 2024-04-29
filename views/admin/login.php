@@ -16,14 +16,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         var_dump("logged");
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['email'] = $user['email'];
+        $_SESSION['first_name'] = $user['first_name'];
+        $_SESSION['last_name'] = $user['last_name'];
         $_SESSION['image_url'] = $user['image_url'];
         $_SESSION['is_admin'] = $user['is_admin'];
-        // check the route to the user and admin landing page
-        // if ($_SESSION['is_admin'] == 1) {
-        //     header("Location: admin_navbar.php");
-        // } else {
-        //     header("Location: user_dashboard.php");
-        // }
+        if ($_SESSION['is_admin'] == 1) {
+            header("Location: dashboard.php");
+        } else {
+            header("Location: ../user/home.php");
+        }
         exit();
     } else {
         $errorMessage = "Invalid email or password. Please try again.";
@@ -35,6 +36,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="login.css" >
+
     <title>Login</title>
 </head>
 <body>
@@ -43,11 +46,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <label for="email">Email:</label>
         <input type="email" name="email" id="email" required><br>
         <label for="password">Password:</label>
-        <input type="password" name="password" id="password" required><br>
+        <div class="password-container">
+                <input type="password" name="password" id="password" required>
+                <span class="toggle-password" onclick="togglePasswordVisibility()">
+                    <i class="fas fa-eye"></i>
+                </span>
+        </div>
         <button type="submit">Login</button>
     </form>
     <?php if (isset($errorMessage)): ?>
         <p><?php echo $errorMessage; ?></p>
     <?php endif; ?>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+    <script>
+        function togglePasswordVisibility() {
+            var passwordInput = document.getElementById("password");
+            var toggleButton = document.querySelector(".toggle-password");
+
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                toggleButton.innerHTML = '<i class="fas fa-eye-slash"></i>';
+            } else {
+                passwordInput.type = "password";
+                toggleButton.innerHTML = '<i class="fas fa-eye"></i>';
+            }
+        }
+    </script>
 </body>
 </html>
