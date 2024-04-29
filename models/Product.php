@@ -31,9 +31,14 @@ class Product
         }
     }
 
-    public function getAllProducts()
+
+public function getAllProducts($page = 1, $perPage = 10)
 {
-    $stmt = $this->conn->prepare("SELECT * FROM products");
+    $offset = ($page - 1) * $perPage;
+    $stmt = $this->conn->prepare("SELECT * FROM products LIMIT :offset, :perPage");
+    $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+    $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
+
     if ($stmt->execute()) {
         $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $products ? $products : null;
@@ -42,6 +47,7 @@ class Product
         return false;
     }
 }
+
 
 public function updateProduct($productId, $data)
     {
@@ -72,6 +78,8 @@ public function updateProduct($productId, $data)
         return $product ? $product : null;
     }   
 
+   
+
 
     public function deleteProduct($productId)
     {
@@ -86,6 +94,42 @@ public function updateProduct($productId, $data)
             return false;
         }
     }
+
+    public function getTotalProductsCount()
+    {
+        $stmt = $this->conn->prepare("SELECT COUNT(*) AS total_count FROM products");
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['total_count'];
+
+    }
+    public function searchProducts($keyword)
+    {
+        $query = "SELECT * FROM products WHERE name LIKE :keyword OR category_name LIKE :keyword";
+        $stmt = $this->conn->prepare($query);
+        $keyword = '%' . $keyword . '%'; 
+        $stmt->bindParam(':keyword', $keyword);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
+    
+
+    public function getProductByName($name)
+{
+    $stmt = $this->conn->prepare("SELECT * FROM products WHERE name = ?");
+    $stmt->bindParam(1, $name);
+    
+    if ($stmt->execute()) {
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $product ? $product : null;
+    } else {
+        return null;
+    }
+}
+
 
 }
 ?>

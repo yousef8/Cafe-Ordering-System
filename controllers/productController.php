@@ -9,6 +9,8 @@ class ProductController
     public function __construct(PDO $conn)
     {
         $this->product = new Product($conn);
+        // $this->conn = $conn; 
+
     }
     
 
@@ -18,6 +20,10 @@ class ProductController
             return false;
         }
 
+        if ($this->getProductByName($data['name'])) {
+            return false; 
+        }
+
         if ($this->product->createProduct($data)) {
             return true; 
         } else {
@@ -25,10 +31,16 @@ class ProductController
         }
     }
 
-     public function getAllProducts()
+    public function getProductByName($name)
     {
-        return $this->product->getAllProducts();
+        return $this->product->getProductByName($name);
     }
+
+    public function getAllProducts($page = 1, $perPage = 10)
+{
+    return $this->product->getAllProducts($page, $perPage);
+}
+
 
     public function update($productId, $data)
     {
@@ -66,7 +78,20 @@ class ProductController
             }
         }
     }
+   
 
+    public function getTotalProductsCount()
+    {
+        return $this->product->getTotalProductsCount();
+    }
+
+
+    public function search($keyword)
+    {
+        $results = $this->product->searchProducts($keyword);
+
+        return $results;
+    }
 
 }
 ?>

@@ -10,14 +10,20 @@ class CategoryController
         $this->category = new Category($conn);
     }
 
+    
     public function create($name)
     {
+        if ($this->category->getCategoryByName($name)) {
+            return false; 
+        }
+        
         if ($this->category->createCategory($name)) {
             return true;
         } else {
             return false;
         }
     }
+
 
     public function getAllCategories()
     {
