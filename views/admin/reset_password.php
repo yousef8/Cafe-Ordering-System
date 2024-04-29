@@ -14,14 +14,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $pdo = new PDO($_ENV['DB_DSN'], $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             
-            $stmt = $pdo->prepare("UPDATE users SET password = :new_password WHERE email = :email");
+            // Check if email exists
+            $check_stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
+            $check_stmt->bindParam(':email', $_POST['email']);
+            $check_stmt->execute();
+            $email_exists = $check_stmt->fetchColumn();
             
-            $stmt->bindParam(':new_password', $_POST['new_password']);
-            $stmt->bindParam(':email', $_POST['email']);
-            
-            $stmt->execute();
-            
-            $message = "Password updated successfully!";
+            if ($email_exists) {
+                // Email exists, proceed with password update
+                $update_stmt = $pdo->prepare("UPDATE users SET password = :new_password WHERE email = :email");
+                $update_stmt->bindParam(':new_password', $_POST['new_password']);
+                $update_stmt->bindParam(':email', $_POST['email']);
+                $update_stmt->execute();
+                $message = "Password updated successfully!";
+            } else {
+                // Email does not exist
+                $message = "Email does not exist!";
+            }
         } catch(PDOException $e) {
             $message = "Error updating password: " . $e->getMessage();
         }
