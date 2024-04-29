@@ -80,23 +80,41 @@
         <?php if (!empty($message)) : ?>
             <div class="message <?= strpos($message, 'successfully') !== false ? 'success' : '' ?>"><?= $message ?></div>
         <?php endif; ?>
-        <form method="post" action="reset_password.php">
+        <form id="passwordForm" method="post" action="reset_password.php" onsubmit="return validateForm()">
             <div>
-                <label for="email">email:</label>
+                <label for="email">Email:</label>
                 <input type="text" name="email" required>
             </div>
             <div>
                 <label for="new_password">New Password:</label>
-                <input type="password" name="new_password" required>
+                <input type="password" id="new_password" name="new_password" required>
             </div>
             <div>
                 <label for="confirm_password">Confirm Password:</label>
-                <input type="password" name="confirm_password" required>
+                <input type="password" id="confirm_password" name="confirm_password" required>
             </div>
             <div>
                 <input type="submit" value="Submit">
             </div>
         </form>
     </div>
+
+    <script>
+        function validateForm() {
+            var newPassword = document.getElementById("new_password").value;
+            var confirmPassword = document.getElementById("confirm_password").value;
+
+            if (newPassword.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                return false;
+            }
+
+            if (newPassword !== confirmPassword) {
+                alert("Passwords do not match!");
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
 </html>
