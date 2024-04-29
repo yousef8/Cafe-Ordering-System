@@ -4,17 +4,15 @@ require_once __DIR__ . '/../../../controllers/roomController.php';
 
 $roomController = new RoomController($conn);
 
-// Handle form submission for creating a room
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['create_room'])) {
     $name = $_POST['name'];
     if ($roomController->create($name)) {
-        echo "<p>Room created successfully.</p>";
+        echo "<p id='success_message' class='alert alert-success position-fixed bottom-0 start-50 translate-middle-x mb-0'>Room created successfully.</p>";
     } else {
-        echo "<p>Failed to create room.</p>";
+        echo "<p id='error_message' class='alert alert-danger position-fixed bottom-0 start-50 translate-middle-x mb-0'>Failed to create room.</p>";
     }
 }
 
-// Retrieve all rooms
 $rooms = $roomController->getAllRooms();
 ?>
 
@@ -31,39 +29,49 @@ $rooms = $roomController->getAllRooms();
 
 <body>
     <?php require_once __DIR__ . "/../admin_navbar.php"; ?>
-    <h1>Create Room</h1>
-    <form action="" method="post">
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name" required><br>
-        <button type="submit" name="create_room">Create</button>
-    </form>
+    <div class="container mt-5">
+        <h1 class="mb-4">Create Room</h1>
+        <form action="" method="post" class="mb-4">
+            <div class="input-group mb-3">
+                <input type="text" name="name" id="name" class="form-control" placeholder="Enter room name" required>
+                <button type="submit" name="create_room" class="btn btn-primary">Create</button>
+            </div>
+        </form>
 
-    <h1>Rooms List</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($rooms as $room) : ?>
+        <h1 class="mb-4">Rooms List</h1>
+        <table class="table">
+            <thead>
                 <tr>
-                    <td><?php echo $room['name']; ?></td>
-                    <td>
-                        <form action="update.php" method="POST">
-                            <input type="hidden" name="name" value="<?php echo $room['name']; ?>">
-                            <button type="submit">Update</button>
-                        </form>
-                        <form action="delete.php" method="POST">
-                            <input type="hidden" name="name" value="<?php echo $room['name']; ?>">
-                            <button type="submit">Delete</button>
-                        </form>
-                    </td>
+                    <th>Name</th>
+                    <th>Actions</th>
                 </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php foreach ($rooms as $room) : ?>
+                    <tr>
+                        <td><?php echo $room['name']; ?></td>
+                        <td>
+                            <form action="update.php" method="POST" class="d-inline">
+                                <input type="hidden" name="name" value="<?php echo $room['name']; ?>">
+                                <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                            </form>
+                            <form action="delete.php" method="POST" class="d-inline">
+                                <input type="hidden" name="name" value="<?php echo $room['name']; ?>">
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            document.getElementById('success_message').style.display = 'none';
+            document.getElementById('error_message').style.display = 'none';
+        }, 1000);
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
