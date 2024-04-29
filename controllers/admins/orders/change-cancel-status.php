@@ -25,5 +25,5 @@ if (!$orders->update($order_id, ["is_cancelled" => $status])) {
     die();
 }
 
-header('Location: /Cafe-Ordering-System/views/admin_orders.php');
+header('Location: /Cafe-Ordering-System/views/user/user_orders.php');
 die();
