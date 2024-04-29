@@ -78,5 +78,19 @@ class User
             return false;
         }
     }
+
+    public function login($email, $password)
+{
+    $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->execute([$email]);
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user && $user['password'] === $password) {
+        return $user;
+    } else {
+        return false;
+    }
+}
+
 }
 ?>

@@ -42,5 +42,10 @@ class UserController
             return false;
         }
     }
+
+    public function login($email, $password)
+    {
+        return $this->user->login($email, $password);
+    }
 }
 ?>
