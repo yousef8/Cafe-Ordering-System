@@ -24,7 +24,7 @@ $products = $productController->getAllProducts();
             <div class="product-cards">
                 <?php foreach ($products as $product) : ?>
                     <div class="product-card">
-                        <img src="../../uploads-product/<?php echo $product['image_url']; ?>" alt="Product Image">
+                        <img src="../../../uploads-product/<?php echo $product['image_url']; ?>" alt="Product Image">
                         <div class="name"><?php echo $product['name']; ?></div>
                         <div class="price"><?php echo $product['price']; ?></div>
                     </div>

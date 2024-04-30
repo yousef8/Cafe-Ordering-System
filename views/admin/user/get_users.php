@@ -4,6 +4,16 @@ require_once __DIR__ . '/../../../controllers/user_controller.php';
 
 $userController = new UserController($conn);
 $users = $userController->getAllUsers();
+
+if (isset($_SESSION['user_id']) && isset($_SESSION['first_name']) && isset($_SESSION['image_url'])) {
+    $userName = $_SESSION['first_name'];
+    $userImageUrl = $_SESSION['image_url'];
+    var_dump($userImageUrl);
+    $imageUrl = "../../uploads-user/" ;
+    $loggedIn = true;
+} else {
+    $loggedIn = false;
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +27,7 @@ $users = $userController->getAllUsers();
     <title>All Users</title>
 </head>
 <body>
-    <?php require_once __DIR__ . "/../admin_navbar.php"; ?>
+    <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
     <h1>User List</h1>
     <a href="add_user.php" class="add"><button type="button">Add User</button></a>
     <?php if (empty($users)): ?>
@@ -39,7 +49,7 @@ $users = $userController->getAllUsers();
                         <td><?php echo $user['email']; ?></td>
                         <td>
                         <?php if (!empty($user['image_url'])): ?>
-                            <img src="../uploads-user/<?php echo $user['image_url']; ?>" alt="User Photo" style="width: 100px;">
+                            <img src="../../../uploads-user/<?php echo $user['image_url']; ?>" alt="User Photo" style="width: 100px;">
                         <?php else: ?>
                             No photo available
                         <?php endif; ?>

@@ -4,6 +4,8 @@ session_start();
 if (isset($_SESSION['user_id']) && isset($_SESSION['first_name']) && isset($_SESSION['image_url'])) {
     $userName = $_SESSION['first_name'];
     $userImageUrl = $_SESSION['image_url'];
+    var_dump($userImageUrl);
+    $imageUrl = "../../uploads-user/" ;
     $loggedIn = true;
 } else {
     $loggedIn = false;
@@ -24,6 +26,7 @@ $adminLinks = array(
 );
 
 $is_admin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
+var_dump($is_admin);
 
 $links = $is_admin ? $adminLinks : $userLinks;
 
@@ -56,17 +59,19 @@ $links = $is_admin ? $adminLinks : $userLinks;
                 <ul class="navbar-nav mb-2 mb-lg-0">
                     <li class="nav-item">
                         <a class="nav-link" href="user.php">
-                            <?php echo $userName; ?>
                             <?php if (!empty($userImageUrl)): ?>
-                                <img src="../../uploads-user/<?php echo $userImageUrl; ?>" alt="User Photo" style="width: 100px;">
-
+                                
+                                <?php  ?>
+                                <img class="rounded-circle" src= <?php echo  "../../uploads-user/" . $userImageUrl; ?> alt="User Photo" style="width: 40px; height: 40px;">
+                                <?php var_dump($imageUrl . $userImageUrl) ?>
                             <?php else: ?>
-                                No photo available
+                                <img src="https://vectorified.com/images/no-profile-picture-icon-14.png">
                             <?php endif; ?>
+                                <?php echo $userName; ?>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../admin/login.php">Logout</a>
+                        <a class="nav-link" href="/Cafe-Ordering-System/views/admin/login.php">Logout</a>
                     </li>
                 </ul>
             <?php endif; ?>

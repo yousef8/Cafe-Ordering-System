@@ -1,4 +1,8 @@
 <?php
+
+if(isset ($_SESSION['image_url'])){
+    $userImageUrl = $_SESSION['image_url'];
+}
 require_once __DIR__ . '/../../../utilities/db_connection.php';
 require_once __DIR__ . '/../../../controllers/roomController.php';
 
@@ -19,7 +23,7 @@ $Rooms = $roomController->getAllRooms();
 </head>
 
 <body>
-    <?php require_once __DIR__ . "/../admin_navbar.php"; ?>
+    <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
     <h1>Rooms List</h1>
     <table>
         <thead>

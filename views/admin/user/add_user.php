@@ -34,8 +34,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         $userController = new UserController($conn);
 
-        //$targetDir = "../../../uploads-user/";
-        $targetFile = basename($_FILES["image"]["name"] ?? "");
+        $targetDir = "../../../uploads-user/";
+        $targetFile = $targetDir . basename($_FILES["image"]["name"] ?? "");
 
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
             $data = [
@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'last_name' => $_POST['last_name'],
                 'email' => $email,
                 'password' => $password,
-                'image_url' => $targetFile,
+                'image_url' => $_FILES["image"]["name"],
                 'room_name' => $_POST['room_name'],
                 'is_admin' => isset($_POST['is_admin']) ? 1 : 0
             ];
@@ -73,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 
 <body>
-    <?php require_once __DIR__ . "/../../user/user_navbar.php"; ?>
+    <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
     <h1>Add User</h1>
 
     <?php if (!empty($errors)): ?>

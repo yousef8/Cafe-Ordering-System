@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <?php require_once __DIR__ . "/../admin_navbar.php"; ?>
+    <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
     <h1>Create Room</h1>
     <form action="" method="post">
         <label for="name">Name:</label>
