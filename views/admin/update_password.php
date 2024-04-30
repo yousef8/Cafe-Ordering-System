@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Forget Password</title>
+    <title>Reset Password</title>
     <style>
-  body {
+        body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
@@ -60,18 +60,21 @@
             margin-top: 20px;
             color: #333;
         }
-      
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>Forget Password</h2>
+<div class="container">
+        <h2>Reset Password</h2>
         <?php if(!empty($message)): ?>
             <p class="message"><?php echo $message; ?></p>
         <?php endif; ?>
         <form method="POST" action="">
-            <label for="email">Enter your email:</label>
+            <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
+            <label for="new_password">New Password:</label>
+            <input type="password" id="new_password" name="new_password" required>
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" required>
             <button type="submit">Submit</button>
         </form>
     </div>
