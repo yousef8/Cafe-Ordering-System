@@ -1,13 +1,21 @@
 <?php
 require_once __DIR__ . '/../models/user.php';
-
+require_once __DIR__ . '/../models/Order.php';
 class UserController
 {
     private $user;
+    private $order;
+
+    public function getOrders($userId)
+    {
+        return $this->order->getUserOrders($userId);
+    }
+
 
     public function __construct(PDO $conn)
     {
         $this->user = new User($conn);
+        $this->order = new OrderModel($conn);
     }
 
     public function create($userData)
