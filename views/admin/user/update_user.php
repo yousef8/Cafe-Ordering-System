@@ -23,10 +23,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     if (isset($_FILES["image"]) && $_FILES["image"]["size"] > 0) {
         $targetDir = "../../../uploads-user/";
-        $targetFile = $targetDir . basename($_FILES["image"]["name"]);
+        $targetFile = $targetDir. basename($_FILES["image"]["name"]);
 
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
-            $updatedData['image_url'] = $targetFile;
+            $updatedData['image_url'] = $_FILES["image"]["name"];
         } else {
             $errorMessage = "Sorry, there was an error uploading your file.";
         }
@@ -92,7 +92,7 @@ if (!$user) {
         <label for="image">Image:</label>
         <input type="file" name="image" id="image" accept="image/*"><br>
         <?php if (!empty($user['image_url'])): ?>
-            <img src="<?php echo $user['image_url']; ?>" alt="Current Image">
+            <img src="../../../uploads-user/<?php echo $user['image_url']; ?>" alt="Current Image">
         <?php endif; ?>
 
 

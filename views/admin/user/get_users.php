@@ -10,7 +10,6 @@ $users = $userController->getAllUsers($page, $perPage);
 if (isset($_SESSION['user_id']) && isset($_SESSION['first_name']) && isset($_SESSION['image_url'])) {
     $userName = $_SESSION['first_name'];
     $userImageUrl = $_SESSION['image_url'];
-    var_dump($userImageUrl);
     $imageUrl = "../../uploads-user/" ;
     $loggedIn = true;
 } else {

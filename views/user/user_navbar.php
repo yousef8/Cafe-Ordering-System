@@ -60,7 +60,7 @@ $links = $is_admin ? $adminLinks : $userLinks;
                             <?php if (!empty($userImageUrl)): ?>
                                 
                                 <?php  ?>
-                                <img class="rounded-circle" src= <?php echo  "../../uploads-user/" . $userImageUrl; ?> alt="User Photo" style="width: 40px; height: 40px;">
+                                <img class="rounded-circle" src= <?php echo  "../../uploads-user/'.$userImageUrl.'"; ?> alt="User Photo" style="width: 40px; height: 40px;">
                             <?php else: ?>
                                 <img src="https://vectorified.com/images/no-profile-picture-icon-14.png">
                             <?php endif; ?>
@@ -68,7 +68,7 @@ $links = $is_admin ? $adminLinks : $userLinks;
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/Cafe-Ordering-System/views/admin/login.php">Logout</a>
+                        <a class="nav-link" href="../logout.php">Logout</a>
                     </li>
                 </ul>
             <?php endif; ?>
