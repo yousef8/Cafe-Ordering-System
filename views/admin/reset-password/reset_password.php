@@ -1,6 +1,6 @@
 <?php
 require_once __DIR__ . '/../../../utilities/db_connection.php';
-require_once __DIR__ . '/../../../vendor/autoload.php'; // Include Composer's autoloader
+require_once __DIR__ . '/../../../vendor/autoload.php'; 
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -12,17 +12,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dotenv = Dotenv\Dotenv::createImmutable(__DIR__.'/../../../');
         $dotenv->load();
 
-        $pdo = new PDO($_ENV['DB_DSN'], $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        
-        // Check if email exists
-        $check_stmt = $pdo->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
+        $check_stmt = $conn->prepare("SELECT COUNT(*) FROM users WHERE email = :email");
         $check_stmt->bindParam(':email', $_POST['email']);
         $check_stmt->execute();
         $email_exists = $check_stmt->fetchColumn();
         
         if ($email_exists) {
-            // Send email to user
             $mail = new PHPMailer(true);
 
             //Server settings
@@ -50,13 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Email does not exist
             $message = "Email does not exist!";
         }
-    } catch(PDOException $e) {
+    } catch(Exception $e) {
         $message = "Error: " . $e->getMessage();
-    } catch (Exception $e) {
-        $message = "Error sending email: " . $mail->ErrorInfo;
     }
 }
 
-// Load view
 require_once 'forget_password.php'; 
 ?>
