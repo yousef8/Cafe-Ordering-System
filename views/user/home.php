@@ -51,17 +51,17 @@
                 <?php
                 if (!$products)
                     return;
-                foreach ($products as $product): ?>
-                                    <div class="col-md-4">
-                                        <div class="card">
-                                            <img src=<?php echo $product['image_url']; ?> alt="Product Image" class="card-img-top">
-                                            <div class="card-body">
-                                                <h5 class="card-title"><?php echo $product['name']; ?></h5>
-                                                <p class="card-text text-success">$<?php echo $product['price']; ?></p>
-                                                <button id="add" class="btn btn-custom">Add</button>
-                                            </div>
-                                        </div>
-                                    </div>
+                foreach ($products as $product) : ?>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <img src=<?php echo "../../uploads-product/" . $product['image_url']; ?> alt="Product Image" class="card-img-top">
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo $product['name']; ?></h5>
+                                <p class="card-text text-success">$<?php echo $product['price']; ?></p>
+                                <button id="add" class="btn btn-custom">Add</button>
+                            </div>
+                        </div>
+                    </div>
                 <?php endforeach; ?>
             </div>
         </div>
