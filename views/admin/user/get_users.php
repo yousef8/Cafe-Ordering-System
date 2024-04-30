@@ -3,7 +3,18 @@ require_once __DIR__ . '/../../../utilities/db_connection.php';
 require_once __DIR__ . '/../../../controllers/user_controller.php';
 
 $userController = new UserController($conn);
-$users = $userController->getAllUsers();
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$perPage = 2;
+$users = $userController->getAllUsers($page, $perPage);
+
+if (isset($_SESSION['user_id']) && isset($_SESSION['first_name']) && isset($_SESSION['image_url'])) {
+    $userName = $_SESSION['first_name'];
+    $userImageUrl = $_SESSION['image_url'];
+    $imageUrl = "../../uploads-user/" ;
+    $loggedIn = true;
+} else {
+    $loggedIn = false;
+}
 ?>
 
 <!DOCTYPE html>
@@ -17,7 +28,7 @@ $users = $userController->getAllUsers();
     <title>All Users</title>
 </head>
 <body>
-    <?php require_once __DIR__ . "/../admin_navbar.php"; ?>
+    <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
     <h1>User List</h1>
     <a href="add_user.php" class="add"><button type="button">Add User</button></a>
     <?php if (empty($users)): ?>
@@ -39,7 +50,7 @@ $users = $userController->getAllUsers();
                         <td><?php echo $user['email']; ?></td>
                         <td>
                         <?php if (!empty($user['image_url'])): ?>
-                            <img src="../uploads-user/<?php echo $user['image_url']; ?>" alt="User Photo" style="width: 100px;">
+                            <img src="../../../uploads-user/<?php echo $user['image_url']; ?>" alt="User Photo" style="width: 100px;">
                         <?php else: ?>
                             No photo available
                         <?php endif; ?>
@@ -59,5 +70,17 @@ $users = $userController->getAllUsers();
             </tbody>
         </table>
     <?php endif; ?>
+    <div class="pagination">
+    <div class="pagination">
+    <?php
+    $totalUsers = $userController->getUsersCount();
+    $totalPages = ceil($totalUsers / $perPage);
+
+    for ($i = 1; $i <= $totalPages; $i++) {
+        echo "<a href='?page=$i'>$i</a>";
+    }
+    ?>
+    </div>
+</div>
 </body>
 </html>

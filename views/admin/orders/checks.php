@@ -36,7 +36,7 @@ foreach ($users_table->getAllUsers() as $idx => $user) {
 </head>
 
 <body>
-    <?php require_once "../admin_navbar.php" ?>
+    <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
     <div class="container-fluid">
         <form class="w-25 mt-4" action="../controllers/admins/checks/filter.php" method="post">
             <div class="container-fluid d-flex flex-row justify-content-around">
