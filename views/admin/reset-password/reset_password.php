@@ -20,17 +20,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($email_exists) {
             $mail = new PHPMailer(true);
 
-            //Server settings
+            // Load SMTP settings from .env
             $mail->isSMTP();
-            $mail->Host       = 'smtp.gmail.com'; // SMTP server
+            $mail->Host       = $_ENV['SMTP_HOST'];
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'fathishimaa218@gmail.com'; // SMTP username
-            $mail->Password   = 'dlxs wwvk evms inna'; // SMTP password
-            $mail->SMTPSecure = 'ssl';
-            $mail->Port       = 465;
+            $mail->Username   = $_ENV['SMTP_USERNAME'];
+            $mail->Password   = $_ENV['SMTP_PASSWORD'];
+            $mail->SMTPSecure = $_ENV['SMTP_SECURE'];
+            $mail->Port       = $_ENV['SMTP_PORT'];
 
             //Recipients
-            $mail->setFrom('fathishimaa218@gmail.com', 'cafe');
+            $mail->setFrom($_ENV['SMTP_USERNAME'], 'cafe');
             $mail->addAddress($_POST['email']); // User's email
 
             // Content
