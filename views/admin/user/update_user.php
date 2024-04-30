@@ -23,14 +23,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     if (isset($_FILES["image"]) && $_FILES["image"]["size"] > 0) {
         $targetDir = "../../../uploads-user/";
-        $targetFile = $targetDir . basename($_FILES["image"]["name"]);
+        $targetFile = $targetDir. basename($_FILES["image"]["name"]);
 
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
-            $updatedData['image_url'] = $targetFile;
+            $updatedData['image_url'] = $_FILES["image"]["name"];
         } else {
             $errorMessage = "Sorry, there was an error uploading your file.";
         }
     }
+    
     if (isset($_POST['room_name'])) {
         $updatedData['room_name'] = $_POST['room_name'];
     }
@@ -74,7 +75,7 @@ if (!$user) {
 </head>
 
 <body>
-    <?php require_once __DIR__ . "/../admin_navbar.php"; ?>
+    <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
     <h1>Update User</h1>
     <form action="" method="post" enctype="multipart/form-data">
         <input type="hidden" name="user_id" value="<?php echo $userId; ?>">
@@ -90,6 +91,10 @@ if (!$user) {
 
         <label for="image">Image:</label>
         <input type="file" name="image" id="image" accept="image/*"><br>
+        <?php if (!empty($user['image_url'])): ?>
+            <img src="../../../uploads-user/<?php echo $user['image_url']; ?>" alt="Current Image">
+        <?php endif; ?>
+
 
         <label for="room_name">Room:</label>
         <!-- <input type="text" name="room_name" id="room_name" value="<?php echo isset($user['room_name']) ? htmlspecialchars($user['room_name']) : ''; ?>" required><br> -->

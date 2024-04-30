@@ -1,4 +1,8 @@
 <?php
+
+if(isset ($_SESSION['image_url'])){
+    $userImageUrl = $_SESSION['image_url'];
+}
 require_once __DIR__ . '/../../../utilities/db_connection.php';
 require_once __DIR__ . '/../../../controllers/roomController.php';
 
@@ -28,19 +32,17 @@ $rooms = $roomController->getAllRooms();
 </head>
 
 <body>
-    <?php require_once __DIR__ . "/../admin_navbar.php"; ?>
-    <div class="container mt-5">
-        <h1 class="mb-4">Create Room</h1>
-        <form action="" method="post" class="mb-4">
-            <div class="input-group mb-3">
-                <input type="text" name="name" id="name" class="form-control" placeholder="Enter room name" required>
-                <button type="submit" name="create_room" class="btn btn-primary">Create</button>
-            </div>
-        </form>
-
-        <h1 class="mb-4">Rooms List</h1>
-        <table class="table">
-            <thead>
+    <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
+    <h1>Rooms List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($Rooms as $room) : ?>
                 <tr>
                     <th>Name</th>
                     <th>Actions</th>

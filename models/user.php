@@ -27,15 +27,27 @@ class User
         }
     }
 
-    public function getAllUsers()
+    public function getAllUsers($page = 1, $perPage = 2)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE is_admin = false");
+        $offset = ($page - 1) * $perPage;
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE is_admin = false LIMIT :offset, :perPage");
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->bindParam(':perPage', $perPage, PDO::PARAM_INT);
         if ($stmt->execute()) {
             $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
             return $users ? $users : null;
         } else {
             return false;
         }
+    }
+
+    public function getUsersCount()
+    {
+        $stmt = $this->conn->prepare("SELECT COUNT(*) AS total_count FROM users");
+        $stmt->execute();
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $row['total_count'];
+
     }
 
     public function getUserById($userId)

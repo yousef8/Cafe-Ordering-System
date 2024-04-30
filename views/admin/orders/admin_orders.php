@@ -21,9 +21,7 @@ $orders = new OrderModel($conn);
 </head>
 
 <body>
-    <?php
-    require_once "../admin_navbar.php";
-    ?>
+<?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
     <div class="container-fluid mt-4">
         <?php
         function getActionsMenu(array $order): string

@@ -27,9 +27,9 @@ class UserController
         }
     }
 
-    public function getAllUsers()
+    public function getAllUsers($page = 1, $perPage = 2)
     {
-        return $this->user->getAllUsers();
+        return $this->user->getAllUsers($page, $perPage);
     }
 
     public function getUserById($userId)
@@ -49,6 +49,11 @@ class UserController
         } else {
             return false;
         }
+    }
+
+    public function getUsersCount()
+    {
+        return $this->user->getUsersCount();
     }
 
     public function login($email, $password)
