@@ -26,6 +26,7 @@ $products = $productController->getAllProducts($page, $perPage);
 <body>
     <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
     <h1>Product List</h1>
+    <a href="create.php" class="add"><button type="button">Add Product</button></a>
     <table>
 
         <thead>
@@ -66,6 +67,7 @@ $products = $productController->getAllProducts($page, $perPage);
             <?php endif; ?>
         </tbody>
     </table>
+    
     <div class="pagination">
     <div class="pagination">
     <?php
