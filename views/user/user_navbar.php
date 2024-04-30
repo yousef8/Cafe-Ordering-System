@@ -4,7 +4,6 @@ session_start();
 if (isset($_SESSION['user_id']) && isset($_SESSION['first_name']) && isset($_SESSION['image_url'])) {
     $userName = $_SESSION['first_name'];
     $userImageUrl = $_SESSION['image_url'];
-    var_dump($userImageUrl);
     $imageUrl = "../../uploads-user/" ;
     $loggedIn = true;
 } else {
@@ -12,7 +11,7 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['first_name']) && isset($_SES
 }
 
 $userLinks = array(
-    'Home' => '/Cafe-Ordering-System/home.php',
+    'Home' => '/Cafe-Ordering-System/views/user/home.php',
     'MyOrders' => '#',
 );
 
@@ -26,7 +25,6 @@ $adminLinks = array(
 );
 
 $is_admin = isset($_SESSION['is_admin']) && $_SESSION['is_admin'] == 1;
-var_dump($is_admin);
 
 $links = $is_admin ? $adminLinks : $userLinks;
 
@@ -43,7 +41,7 @@ $links = $is_admin ? $adminLinks : $userLinks;
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/Cafe-Ordering-System/home.php">The Cafe</a>
+        <a class="navbar-brand">The Cafe</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -63,7 +61,6 @@ $links = $is_admin ? $adminLinks : $userLinks;
                                 
                                 <?php  ?>
                                 <img class="rounded-circle" src= <?php echo  "../../uploads-user/" . $userImageUrl; ?> alt="User Photo" style="width: 40px; height: 40px;">
-                                <?php var_dump($imageUrl . $userImageUrl) ?>
                             <?php else: ?>
                                 <img src="https://vectorified.com/images/no-profile-picture-icon-14.png">
                             <?php endif; ?>

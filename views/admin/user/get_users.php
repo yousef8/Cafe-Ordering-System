@@ -3,7 +3,9 @@ require_once __DIR__ . '/../../../utilities/db_connection.php';
 require_once __DIR__ . '/../../../controllers/user_controller.php';
 
 $userController = new UserController($conn);
-$users = $userController->getAllUsers();
+$page = isset($_GET['page']) ? $_GET['page'] : 1;
+$perPage = 2;
+$users = $userController->getAllUsers($page, $perPage);
 
 if (isset($_SESSION['user_id']) && isset($_SESSION['first_name']) && isset($_SESSION['image_url'])) {
     $userName = $_SESSION['first_name'];
@@ -69,5 +71,17 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['first_name']) && isset($_SES
             </tbody>
         </table>
     <?php endif; ?>
+    <div class="pagination">
+    <div class="pagination">
+    <?php
+    $totalUsers = $userController->getUsersCount();
+    $totalPages = ceil($totalUsers / $perPage);
+
+    for ($i = 1; $i <= $totalPages; $i++) {
+        echo "<a href='?page=$i'>$i</a>";
+    }
+    ?>
+    </div>
+</div>
 </body>
 </html>

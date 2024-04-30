@@ -19,7 +19,7 @@ $categories = $categoryController->getAllCategories();
 </head>
 
 <body>
-    <?php require_once __DIR__ . "/../admin_navbar.php"; ?>
+    <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
     <h1>Categories List</h1>
     <table>
         <thead>
