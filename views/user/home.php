@@ -32,6 +32,24 @@
     <title>Home</title>
 </head>
 <body>
+    <!-- Modal -->
+<div class="modal fade" id="orderSuccessModal" tabindex="-1" aria-labelledby="orderSuccessModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="orderSuccessModalLabel">Order Created Successfully!</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        Your order has been successfully created.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-custom" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
     <?php require_once __DIR__ . '/user_navbar.php'; ?>
     <main class="d-flex min-vh-100">
         <!-- Sidebar -->
@@ -154,6 +172,35 @@
                 }
             });
         });
+
+        document.getElementById('checkout-btn').addEventListener('click', function () {
+    fetch('/Cafe-Ordering-System/controllers/order/create_order.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(cartItems)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Clear the cart items
+            cartItems = [];
+            updateCart();
+            // Show the success modal
+            var orderSuccessModal = new bootstrap.Modal(document.getElementById('orderSuccessModal'));
+            orderSuccessModal.show();
+        } else {
+            // Handle failure
+            alert('Failed to create order');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while creating the order');
+    });
+});
+
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
