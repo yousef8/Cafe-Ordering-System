@@ -104,7 +104,7 @@
         function addToCart(productId,productName, price) {
             const item =document.getElementById(`quantity-${productId}`)
             var existingItem = cartItems.find(function (item) {
-                return item.productName === productName;
+                return item.id === productId;
             });
 
             if (existingItem) {
@@ -124,7 +124,7 @@
         function removeFromCart(productId,productName) {
             const itemx =document.getElementById(`quantity-${productId}`)
             var index = cartItems.findIndex(function (item) {
-                return item.productName === productName;
+                return item.id === productId;
             });
 
             if (index !== -1) {
