@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start session if not already started
+
 
 $userImageUrl = isset($_SESSION['image_url']) ? $_SESSION['image_url'] : null;
 

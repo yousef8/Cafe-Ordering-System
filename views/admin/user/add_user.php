@@ -47,12 +47,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'room_name' => $_POST['room_name'],
                 'is_admin' => isset($_POST['is_admin']) ? 1 : 0
             ];
-
-            if ($userController->create($data)) {
-                echo "<p>User added successfully.</p>";
-            } else {
+            try {
+                if ($userController->create($data)) {
+                    echo "<p>User added successfully.</p>";
+                } else {
+                    echo "<p>Failed to add user.</p>";
+                }
+            } catch (\Throwable $th) {
                 echo "<p>Failed to add user.</p>";
             }
+          
         } else {
             echo "Sorry, there was an error uploading your file.";
         }

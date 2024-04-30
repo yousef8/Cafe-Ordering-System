@@ -10,12 +10,11 @@ class CartItemModel
     private $cartModel;
     private $lastErrorMessage;
 
-    public function __construct()
+    public function __construct($conn)
     {
-        require_once '../utilities/db_connection.php';
         $this->conn = $conn;
         $this->productModel = new Product($conn);
-        $this->cartModel = new CartModel();
+        $this->cartModel = new CartModel($conn);
     }
 
     public function getLastErrorMessage()

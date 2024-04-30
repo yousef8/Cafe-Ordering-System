@@ -5,9 +5,8 @@ class CartModel
     private PDO $conn;
     private string $lastErrorMessage;
 
-    public function __construct()
+    public function __construct($conn)
     {
-        require_once '../utilities/db_connection.php';
         $this->conn = $conn;
     }
 

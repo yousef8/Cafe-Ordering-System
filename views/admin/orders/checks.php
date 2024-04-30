@@ -20,6 +20,7 @@ foreach ($users_table->getAllUsers() as $idx => $user) {
         $total_orders_amount += $order['total_price'];
     }
     $user['total_orders_amount'] = $total_orders_amount;
+    $user['orders'] = $orders; // Include the orders for each user
     $users[$idx] = $user;
 }
 ?>
@@ -38,25 +39,25 @@ foreach ($users_table->getAllUsers() as $idx => $user) {
 <body>
     <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
     <div class="container-fluid">
-        <form class="w-25 mt-4" action="../controllers/admins/checks/filter.php" method="post">
+        <form class="w-25 mt-4">
             <div class="container-fluid d-flex flex-row justify-content-around">
                 <div>
                     <label for="from">From</label>
-                    <input type="date" id="from" name="from" placeholder="From">
+                    <input type="date" id="fromDate" name="from" placeholder="From">
                 </div>
                 <div class="ms-4">
                     <label for="to">To</label>
-                    <input type="date" id="to" name="to" placeholder="To">
+                    <input type="date" id="toDate" name="to" placeholder="To">
                 </div>
             </div>
 
-            <select class="form-select mt-3" aria-label="Default select example" name="user_id">
+            <select class="form-select mt-3" aria-label="Default select example" name="user_id" id="userFilter">
                 <option value="" selected>Choose User</option>
                 <option value="1">One</option>
                 <option value="2">Two</option>
                 <option value="3">Three</option>
             </select>
-            <input class="btn btn-warning mt-3" type="submit" value="Filter">
+            <input class="btn btn-warning mt-3" type="button" value="Filter" id="filterButton">
         </form>
 
         <div class="checks">
@@ -68,7 +69,7 @@ foreach ($users_table->getAllUsers() as $idx => $user) {
                         <th scope="col">Total Orders Amount</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="filteredOrders">
                     <?php foreach ($users as $user) : ?>
                         <tr data-bs-toggle="collapse" data-bs-target="#accordion-<?php echo $user['id']; ?>" aria-expanded="false" aria-controls="accordion-<?php echo $user['id']; ?>">
                             <td><?php echo $user['id'] ?></td>
@@ -87,7 +88,7 @@ foreach ($users_table->getAllUsers() as $idx => $user) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php foreach ($orders_table->where(["user_id" => $user['id']]) as $order) : ?>
+                                            <?php foreach ($user['orders'] as $order) : ?>
                                                 <tr>
                                                     <td><?php echo $order['id']; ?></td>
                                                     <td><?php echo $order['create_date']; ?></td>
@@ -100,12 +101,65 @@ foreach ($users_table->getAllUsers() as $idx => $user) {
                             </td>
                         </tr>
                     <?php endforeach; ?>
-
                 </tbody>
             </table>
         </div>
     </div>
-    </div>
+
+    <script>
+        document.getElementById('filterButton').addEventListener('click', function (event) {
+    event.preventDefault(); // Prevent the form from being submitted
+
+    var selectedUserId = document.getElementById('userFilter').value;
+    var fromDate = document.getElementById('fromDate').value;
+    var toDate = document.getElementById('toDate').value;
+
+    var tableBody = document.getElementById('filteredOrders');
+    tableBody.innerHTML = '';
+
+    <?php echo json_encode($users); ?>.forEach(function (user) {
+        if (selectedUserId === '' || user.id == selectedUserId) {
+            var ordersHtml = '';
+
+            user.orders.forEach(function (order) {
+                if ((fromDate === '' || order.create_date >= fromDate) &&
+                    (toDate === '' || order.create_date <= toDate)) {
+                    ordersHtml += '<tr>' +
+                        '<td>' + order.id + '</td>' +
+                        '<td>' + order.create_date + '</td>' +
+                        '<td>' + order.total_price + '</td>' +
+                        '</tr>';
+                }
+            });
+
+            if (ordersHtml !== '') {
+                var row = '<tr data-bs-toggle="collapse" data-bs-target="#accordion-' + user.id + '" aria-expanded="true" aria-controls="accordion-' + user.id + '">' +
+                    '<td>' + user.id + '</td>' +
+                    '<td>' + user.first_name + ' ' + user.last_name + '</td>' +
+                    '<td>' + user.total_orders_amount + '</td>' +
+                    '</tr>';
+
+                var subRow = '<tr>' +
+                    '<td colspan="3" class="p-0">' +
+                    '<div id="accordion-' + user.id + '" class="collapse show">' +
+                    '<table class="table table-striped mb-0">' +
+                    '<thead>' +
+                    '<tr>' +
+                    '<th scope="col">Order ID</th>' +
+                    '<th scope="col">Created At</th>' +
+                    '<th scope="col">Total Price</th>' +
+                    '</tr>' +
+                    '</thead>' +
+                    '<tbody>' + ordersHtml + '</tbody></table></div></td></tr>';
+
+                tableBody.innerHTML += row + subRow;
+            }
+        }
+    });
+});
+
+
+    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
