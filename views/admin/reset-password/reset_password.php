@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../../utilities/db_connection.php';
-require_once __DIR__ . '/../../vendor/autoload.php'; // Include Composer's autoloader
+require_once __DIR__ . '/../../../utilities/db_connection.php';
+require_once __DIR__ . '/../../../vendor/autoload.php'; // Include Composer's autoloader
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -9,7 +9,7 @@ $message = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     try {
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__.'/../../');
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__.'/../../../');
         $dotenv->load();
 
         $pdo = new PDO($_ENV['DB_DSN'], $_ENV['DB_USER'], $_ENV['DB_PASSWORD']);
@@ -41,7 +41,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Content
             $mail->isHTML(true);
             $mail->Subject = 'Reset Password';
-            $mail->Body    = 'Please click the following link to reset your password: <a href="http://localhost/Cafe-ordering-system/views/admin/reset-after-email.php">Reset Password</a>';
+            $mail->Body    = 'Please click the following link to reset your password: <a href="http://localhost/Cafe-ordering-system/views/admin/reset-password/reset-after-email.php">Reset Password</a>';
 
             $mail->send();
 

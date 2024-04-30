@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         <button type="submit">Login</button>
         <div class="mt-3">
-    <a href="reset_password.php">Forgot your password? Reset it here.</a>
+    <a href="../admin/reset-password/reset_password.php">Forgot your password? Reset it here.</a>
 </div>
     </form>
     <?php if (isset($errorMessage)): ?>
