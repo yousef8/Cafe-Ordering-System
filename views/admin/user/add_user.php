@@ -78,6 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <body>
     <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
+    
     <h1>Add User</h1>
 
     <?php if (!empty($errors)): ?>

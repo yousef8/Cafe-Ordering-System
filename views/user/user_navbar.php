@@ -112,7 +112,7 @@ $links = $is_admin ? $adminLinks : $userLinks;
                                 <?php echo $userName; ?>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a style="color:black;" class="dropdown-item" href="../admin/logout.php">Logout</a></li>
+                                <li><a style="color:black;" class="dropdown-item" href="/Cafe-Ordering-System/views/admin/logout.php">Logout</a></li>
                             </ul>
                         </li>
                     </ul>
