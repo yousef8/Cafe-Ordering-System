@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
     if (isset($_FILES["image"]) && $_FILES["image"]["size"] > 0) {
         $targetDir = "../../../uploads-user/";
-        $targetFile = $targetDir. basename($_FILES["image"]["name"]);
+        $targetFile = $targetDir . basename($_FILES["image"]["name"]);
 
         if (move_uploaded_file($_FILES["image"]["tmp_name"], $targetFile)) {
             $updatedData['image_url'] = $_FILES["image"]["name"];
@@ -69,14 +69,19 @@ if (!$user) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="form.css" >
+    <link rel="stylesheet" href="form.css">
     <title>Update User</title>
 </head>
 
 <body>
     <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
     <h1>Update User</h1>
+    <?php if ($errorMessage): ?>
+        <div class="alert alert-danger"><?php echo $errorMessage; ?></div>
+    <?php endif; ?>
+    <?php if ($successMessage): ?>
+        <div class="alert alert-success"><?php echo $successMessage; ?></div>
+    <?php endif; ?>
     <form action="" method="post" enctype="multipart/form-data">
         <input type="hidden" name="user_id" value="<?php echo $userId; ?>">
 
@@ -95,12 +100,12 @@ if (!$user) {
             <img src="../../../uploads-user/<?php echo $user['image_url']; ?>" alt="Current Image">
         <?php endif; ?>
 
-
         <label for="room_name">Room:</label>
-        <!-- <input type="text" name="room_name" id="room_name" value="<?php echo isset($user['room_name']) ? htmlspecialchars($user['room_name']) : ''; ?>" required><br> -->
         <?php require_once __DIR__ . "/../room/dropDown.php"; ?>
+
         <button type="submit">Update User</button>
         <a href="get_users.php"><button type="button">Back</button></a>
     </form>
+</body>
 
-    <?php
+</html>
