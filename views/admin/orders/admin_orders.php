@@ -9,6 +9,7 @@ error_reporting(E_ALL);
 <?php
 require "../../../utilities/db_connection.php";
 require_once "../../../models/Order.php";
+require_once __DIR__ . '/../check_session.php';
 $orders = new OrderModel($conn);
 ?>
 

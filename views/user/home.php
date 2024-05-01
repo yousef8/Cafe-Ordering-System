@@ -51,6 +51,7 @@
 </div>
 
     <?php require_once __DIR__ . '/user_navbar.php'; ?>
+    <?php require_once __DIR__ . '/../admin/check_session.php';?>
     <main class="d-flex min-vh-100">
         <!-- Sidebar -->
         <div class="w-25 p-4">
@@ -184,14 +185,11 @@
     .then(response => response.json())
     .then(data => {
         if (data.success) {
-            // Clear the cart items
             cartItems = [];
             updateCart();
-            // Show the success modal
             var orderSuccessModal = new bootstrap.Modal(document.getElementById('orderSuccessModal'));
             orderSuccessModal.show();
         } else {
-            // Handle failure
             alert('Failed to create order');
         }
     })

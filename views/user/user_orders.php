@@ -14,7 +14,7 @@
     <?php
     require_once __DIR__ . '/../../utilities/db_connection.php';
     require_once __DIR__ . '/../../controllers/user_controller.php';
-
+    require_once __DIR__ . '/../admin/check_session.php';
 
     if (!isset($_SESSION['user_id'])) {
         echo "<p class='container'>User not logged in.</p>";

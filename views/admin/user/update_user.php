@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . '/../../../utilities/db_connection.php';
 require_once __DIR__ . '/../../../controllers/user_controller.php';
+require_once __DIR__ . '/../check_session.php';
+
 
 $userController = new UserController($conn);
 
@@ -97,7 +99,7 @@ if (!$user) {
         <label for="image">Image:</label>
         <input type="file" name="image" id="image" accept="image/*"><br>
         <?php if (!empty($user['image_url'])): ?>
-            <img src="../../../uploads-user/<?php echo $user['image_url']; ?>" alt="Current Image">
+            <?php echo $user['image_url']; ?>
         <?php endif; ?>
 
         <label for="room_name">Room:</label>

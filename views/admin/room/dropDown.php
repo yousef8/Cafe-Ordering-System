@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../controllers/roomController.php';
 require_once __DIR__ . '/../../../utilities/db_connection.php';
-
+require_once __DIR__ . '/../check_session.php';
 $roomController = new RoomController($conn);
 $rooms = $roomController->getAllRooms();
 ?>

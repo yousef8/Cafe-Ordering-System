@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 require_once '../../../utilities/db_connection.php';
 require_once '../../../models/user.php';
 require_once '../../../models/Order.php';
-
+require_once __DIR__ . '/../check_session.php';
 $users_table = new User($conn);
 $orders_table = new OrderModel($conn);
 

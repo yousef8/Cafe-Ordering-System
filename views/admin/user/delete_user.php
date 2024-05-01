@@ -1,7 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../utilities/db_connection.php';
 require_once __DIR__ . '/../../../controllers/user_controller.php';
-
+require_once __DIR__ . '/../check_session.php';
 $userController = new UserController($conn);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['user_id'])) {

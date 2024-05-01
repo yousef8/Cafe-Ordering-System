@@ -1,5 +1,5 @@
 <?php
-session_start();
+require_once __DIR__ . '/../admin/check_session.php';
 
 if (isset($_SESSION['user_id']) && isset($_SESSION['first_name']) && isset($_SESSION['image_url'])) {
     $userName = $_SESSION['first_name'];
@@ -11,11 +11,13 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['first_name']) && isset($_SES
 }
 
 $userLinks = array(
+    'The Cafe'=> '/Cafe-Ordering-System/views/user/home.php',
     'Home' => '/Cafe-Ordering-System/views/user/home.php',
     'MyOrders' => '#',
 );
 
 $adminLinks = array(
+    'The Cafe' => '/Cafe-Ordering-System/views/admin/dashboard.php',
     'Products' => '/Cafe-Ordering-System/views/admin/products/get.php',
     'Categories' => '/Cafe-Ordering-System/views/admin/category/get.php',
     'Rooms' => '/Cafe-Ordering-System/views/admin/room/get.php',
@@ -88,7 +90,7 @@ $links = $is_admin ? $adminLinks : $userLinks;
 
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/Cafe-Ordering-System/views/user/home.php">The Cafe</a>
+        <!-- <a class="navbar-brand" href="/Cafe-Ordering-System/views/user/home.php">The Cafe</a> -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
