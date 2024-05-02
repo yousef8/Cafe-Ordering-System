@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <?php require_once __DIR__ . "/../admin_navbar.php"; ?>
+    <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
     <h1>Create Product</h1>
     <form action="" method="post" enctype="multipart/form-data">
         <div class="form-group">
@@ -61,6 +61,7 @@
         <?php
         require_once __DIR__ . '/../../../utilities/db_connection.php';
         require_once __DIR__ . '/../../../controllers/productController.php';
+        require_once __DIR__ . '/../check_session.php';
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $productController = new ProductController($conn);

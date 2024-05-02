@@ -35,7 +35,7 @@ class OrderModel
      *
      * @return int|false The ID of the newly inserted record, or false on failure.
      */
-    public function create(array $fieldsToValues): int | false
+    public function create(array $fieldsToValues): int|false
     {
         try {
             $fields = implode(', ', array_keys($fieldsToValues));
@@ -78,7 +78,19 @@ class OrderModel
         }
     }
 
-    public function getById(int $id): array| false
+    public function getUserOrders($userId): array|false
+    {
+        try {
+            $stmt = $this->conn->prepare("SELECT * FROM orders where user_id = $userId");
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            $this->last_error_message = $e->getMessage();
+            return false;
+        }
+    }
+
+    public function getById(int $id): array|false
     {
         try {
             $stmt = $this->conn->prepare("SELECT * FROM orders WHERE id = :id");

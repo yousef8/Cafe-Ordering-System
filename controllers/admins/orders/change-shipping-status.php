@@ -18,7 +18,7 @@ $status = $_GET['status'];
 $orders = new OrderModel($conn);
 $order = $orders->getById($order_id);
 if ($order['is_cancelled']) {
-    header('Location: /Cafe-Ordering-System/views/admin_orders.php');
+    header('Location: /Cafe-Ordering-System/views/user/user_orders.php');
     die();
 }
 
@@ -34,5 +34,5 @@ if (preg_match("/[dD][eE][lL][iI][vV][eE][rR][eE][dD]/", $status)) {
     }
 }
 
-header('Location: /Cafe-Ordering-System/views/admin_orders.php');
+header('Location: /Cafe-Ordering-System/views/user/user_orders.php');
 die();

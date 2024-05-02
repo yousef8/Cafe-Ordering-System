@@ -1,13 +1,21 @@
 <?php
 require_once __DIR__ . '/../models/user.php';
-
+require_once __DIR__ . '/../models/Order.php';
 class UserController
 {
     private $user;
+    private $order;
+
+    public function getOrders($userId)
+    {
+        return $this->order->getUserOrders($userId);
+    }
+
 
     public function __construct(PDO $conn)
     {
         $this->user = new User($conn);
+        $this->order = new OrderModel($conn);
     }
 
     public function create($userData)
@@ -19,9 +27,9 @@ class UserController
         }
     }
 
-    public function getAllUsers()
+    public function getAllUsers($page = 1, $perPage = 2)
     {
-        return $this->user->getAllUsers();
+        return $this->user->getAllUsers($page, $perPage);
     }
 
     public function getUserById($userId)
@@ -41,6 +49,16 @@ class UserController
         } else {
             return false;
         }
+    }
+
+    public function getUsersCount()
+    {
+        return $this->user->getUsersCount();
+    }
+
+    public function login($email, $password)
+    {
+        return $this->user->login($email, $password);
     }
 }
 ?>

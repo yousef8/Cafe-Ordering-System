@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . '/../../utilities/db_connection.php';
 require_once __DIR__ . '/../../controllers/productController.php';
-
 $productController = new ProductController($conn);
 $products = $productController->getAllProducts();
 ?>
@@ -19,7 +18,7 @@ $products = $productController->getAllProducts();
 
 <body>
     <div class="container-fluid">
-        <?php require_once __DIR__ . "/admin_navbar.php"; ?>
+        <?php require_once __DIR__ . "/../user/user_navbar.php"; ?>
         <div class="dashboard">
         <?php
         require_once __DIR__ . '/../../utilities/db_connection.php';
@@ -44,13 +43,20 @@ $products = $productController->getAllProducts();
     <button type="submit" style="padding: 10px 20px; border: none; background-color: #555; color: #fff; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">Search</button>
     </form>
             <div class="product-cards">
+            <?php if (empty($products)): ?>
+                <tr><td colspan="6">No products have been added yet.</td></tr>
+            <?php else: ?>
                 <?php foreach ($products as $product) : ?>
                     <div class="product-card">
                         <img src="../../uploads-product/<?php echo $product['image_url']; ?>" alt="Product Image">
                         <div class="name"><?php echo $product['name']; ?></div>
                         <div class="price"><?php echo $product['price']; ?></div>
+                        <button id="add" style="background-color:  #555; color: #fff">Add</button>
+
                     </div>
                 <?php endforeach; ?>
+                <?php endif; ?>
+
             </div>
         </div>
     </div>

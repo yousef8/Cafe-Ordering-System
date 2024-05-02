@@ -1,3 +1,4 @@
+
     <nav class="navbar navbar-expand-lg bg-body-tertiary">
         <div class="container-fluid">
             <a class="navbar-brand" href="/Cafe-Ordering-System/views/admin/dashboard.php">The Cafe</a>
@@ -11,7 +12,7 @@
                         'Products' => '/Cafe-Ordering-System/views/admin/products/get.php',
                         'Categories' => '/Cafe-Ordering-System/views/admin/category/get.php',
                         'Rooms' => '/Cafe-Ordering-System/views/admin/room/get.php',
-                        'Users' => '/Cafe-Ordering-System/views/admin/user/add_user.php',
+                        'Users' => '/Cafe-Ordering-System/views/admin/user/get_users.php',
                         'Manual Orders' => '/Cafe-Ordering-System/views/admin/orders/admin_orders.php',
                         'Checks' => '/Cafe-Ordering-System/views/admin/orders/checks.php',
                     );

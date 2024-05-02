@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../../../utilities/db_connection.php';
 require_once __DIR__ . '/../../../controllers/productController.php';
+require_once __DIR__ . '/../check_session.php';
 
 $productController = new ProductController($conn);
 
@@ -24,8 +25,8 @@ $products = $productController->getAllProducts($page, $perPage);
 </head>
 
 <body>
-<?php require_once __DIR__ . "/../admin_navbar.php"; ?>
-    <h1>Products List</h1>
+    <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
+    <h1>Product List</h1>
     <a href="create.php" class="add"><button type="button">Add Product</button></a>
     <table>
 
@@ -67,6 +68,7 @@ $products = $productController->getAllProducts($page, $perPage);
             <?php endif; ?>
         </tbody>
     </table>
+    
     <div class="pagination">
     <div class="pagination">
     <?php

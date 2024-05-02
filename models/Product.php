@@ -78,6 +78,8 @@ public function updateProduct($productId, $data)
         return $product ? $product : null;
     }   
 
+   
+
 
     public function deleteProduct($productId)
     {
@@ -116,18 +118,18 @@ public function updateProduct($productId, $data)
     
 
     public function getProductByName($name)
-    {
-        $stmt = $this->conn->prepare("SELECT * FROM products WHERE name = ?");
-        $stmt->bindParam(1, $name);
-        
-        if ($stmt->execute()) {
-            $product = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $product ? $product : null;
-        } else {
-            $this->lastErrorMessage = "Failed to fetch category.";
-            return false;
-        }
+{
+    $stmt = $this->conn->prepare("SELECT * FROM products WHERE name = ?");
+    $stmt->bindParam(1, $name);
+    
+    if ($stmt->execute()) {
+        $product = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $product ? $product : null;
+    } else {
+        return null;
     }
+}
+
 
 }
 ?>

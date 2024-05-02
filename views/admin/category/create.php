@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <?php require_once __DIR__ . "/../admin_navbar.php"; ?>
+    <?php require_once __DIR__ . '/../../user/user_navbar.php'; ?>
     <h1>Create Category</h1>
     <form action="" method="post">
         <div class="form-group">
@@ -26,7 +26,7 @@
     <?php
     require_once __DIR__ . '/../../../utilities/db_connection.php';
     require_once __DIR__ . '/../../../controllers/categoryController.php';
-
+    require_once __DIR__ . '/../check_session.php';
     $categoryController = new CategoryController($conn);
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
