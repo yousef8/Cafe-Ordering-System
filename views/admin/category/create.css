@@ -12,8 +12,8 @@ body {
     line-height: 1.6;
     background-color: #f0f0f0;
     padding: 20px;
-    background-image: url('./styling-images/createcafe.jpg');
-    background-size: 550px;
+    background-image: url('./styling-images/createCafe.jpeg');
+    background-size: 700px;
 }
 
 h1 {
