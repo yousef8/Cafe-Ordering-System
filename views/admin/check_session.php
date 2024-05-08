@@ -8,7 +8,8 @@ if (!isset($_SESSION['user_id'])) {
     if (isset($_SESSION['is_admin']) && $_SESSION['is_admin'] === 1) {
         $requestedPage = $_SERVER['PHP_SELF'];
         $allowedAdminPages = array(
-            '/Cafe-Ordering-System/views/admin/dashboard.php',
+            //'/Cafe-Ordering-System/views/admin/dashboard.php',
+            '/Cafe-Ordering-System/views/user/home.php',
             '/Cafe-Ordering-System/views/admin/user/get_users.php',
             '/Cafe-Ordering-System/views/admin/user/add_user.php',
             '/Cafe-Ordering-System/views/admin/user/update_user.php',
@@ -30,13 +31,14 @@ if (!isset($_SESSION['user_id'])) {
         );
 
         if (!in_array($requestedPage, $allowedAdminPages)) {
-            header("Location: /Cafe-Ordering-System/views/admin/dashboard.php");
+            header("Location: /Cafe-Ordering-System/views/user/home.php");
             exit;
         }
     } else {
         $requestedPage = $_SERVER['PHP_SELF'];
         $allowedUserPages = array(
             '/Cafe-Ordering-System/views/user/home.php',
+            '/Cafe-Ordering-System/views/user/user_orders.php',
         );
 
         if (!in_array($requestedPage, $allowedUserPages)) {

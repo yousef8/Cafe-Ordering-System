@@ -13,12 +13,12 @@ if (isset($_SESSION['user_id']) && isset($_SESSION['first_name']) && isset($_SES
 $userLinks = array(
     'The Cafe'=> '/Cafe-Ordering-System/views/user/home.php',
     'Home' => '/Cafe-Ordering-System/views/user/home.php',
-    'MyOrders' => '#',
+    'MyOrders' => '/Cafe-Ordering-System/views/user/user_orders.php',
 );
 
 $adminLinks = array(
-    'The Cafe' => '/Cafe-Ordering-System/views/admin/dashboard.php',
-    'Products' => '/Cafe-Ordering-System/views/admin/products/get.php',
+    'The Cafe' => '/Cafe-Ordering-System/views/user/home.php',
+    'Products' => '/Cafe-Ordering-System/views/user/home.php',
     'Categories' => '/Cafe-Ordering-System/views/admin/category/get.php',
     'Rooms' => '/Cafe-Ordering-System/views/admin/room/get.php',
     'Users' => '/Cafe-Ordering-System/views/admin/user/get_users.php',
