@@ -43,6 +43,9 @@ $products = $productController->getAllProducts();
     <button type="submit" style="padding: 10px 20px; border: none; background-color: #555; color: #fff; border-radius: 5px; cursor: pointer; transition: background-color 0.3s;">Search</button>
     </form>
             <div class="product-cards">
+            <?php if (empty($products)): ?>
+                <tr><td colspan="6">No products have been added yet.</td></tr>
+            <?php else: ?>
                 <?php foreach ($products as $product) : ?>
                     <div class="product-card">
                         <img src="../../uploads-product/<?php echo $product['image_url']; ?>" alt="Product Image">
@@ -52,6 +55,8 @@ $products = $productController->getAllProducts();
 
                     </div>
                 <?php endforeach; ?>
+                <?php endif; ?>
+
             </div>
         </div>
     </div>

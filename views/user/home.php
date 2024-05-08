@@ -70,34 +70,51 @@
                 <button type="button" id="search-button" class="btn btn-custom">Search</button>
             </div>
             <div class="row gx-3 gy-3" id="products-container">
-                <?php
-                require_once __DIR__ . '/../../utilities/db_connection.php';
-                require_once __DIR__ . '/../../controllers/productController.php';
+    <?php
+    require_once __DIR__ . '/../../utilities/db_connection.php';
+    require_once __DIR__ . '/../../controllers/productController.php';
 
-                $productController = new ProductController($conn);
-                $products = $productController->getAllProducts();
-                foreach ($products as $product) : ?>
-                    <div class="col-md-4 product-card" data-name="<?php echo strtolower($product['name']); ?>">
-                        <div class="card">
-                            <img src="<?php echo "../../uploads-product/" . $product['image_url']; ?>" alt="Product Image" class="card-img-top">
-                            <div class="card-body">
-                                <h5 class="card-title"><?php echo $product['name']; ?></h5>
-                                <p class="card-text text-success">$<?php echo $product['price']; ?></p>
-                                <div class="d-flex align-items-center">
-                                    <button class="btn btn-custom" onclick="addToCart('<?php echo $product['name']; ?>', <?php echo $product['price']; ?>)">Add</button>
-                                    <div class="input-group ms-3">
-                                        <button class="btn btn-outline-secondary" type="button" onclick="removeFromCart(<?php echo $product['id']; ?>,'<?php echo $product['name']; ?>')">-</button>
-                                        <span class="input-group-text" id="quantity-<?php echo $product['id']; ?>">0</span>
-                                        <button class="btn btn-outline-secondary" type="button" onclick="addToCart(<?php echo $product['id']; ?>,'<?php echo $product['name']; ?>', <?php echo $product['price']; ?>)">+</button>
-                                    </div>
-                                </div>
+    $productController = new ProductController($conn);
+    $products = $productController->getAllProducts();
+    if (empty($products)): ?>
+        <div><p>No Products have been added yet.</p></div>
+    <?php else: ?>
+        <?php foreach ($products as $product) : ?>
+            <div class="col-md-4 product-card" data-name="<?php echo strtolower($product['name']); ?>">
+                <div class="card">
+                    <img src="<?php echo "../../uploads-product/" . $product['image_url']; ?>" alt="Product Image" class="card-img-top">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $product['name']; ?></h5>
+                        <p class="card-text text-success">$<?php echo $product['price']; ?></p>
+                        <div class="d-flex align-items-center">
+                            <button class="btn btn-custom" onclick="addToCart('<?php echo $product['name']; ?>', <?php echo $product['price']; ?>)">Add</button>
+                            <div class="input-group ms-3">
+                                <button class="btn btn-outline-secondary" type="button" onclick="removeFromCart(<?php echo $product['id']; ?>,'<?php echo $product['name']; ?>')">-</button>
+                                <span class="input-group-text" id="quantity-<?php echo $product['id']; ?>">0</span>
+                                <button class="btn btn-outline-secondary" type="button" onclick="addToCart(<?php echo $product['id']; ?>,'<?php echo $product['name']; ?>', <?php echo $product['price']; ?>)">+</button>
                             </div>
                         </div>
                     </div>
-                <?php endforeach; ?>
+                </div>
             </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+</div>
+
         </div>
     </main>
+
+
+
+
+
+
+
+
+
+
+
+    
     <script>
         var cartItems = [];
 

@@ -84,18 +84,34 @@ if (!$product) {
         <label for="price">Price:</label>
         <input type="text" id="price" name="price" value="<?php echo isset($product['price']) ? htmlspecialchars($product['price']) : ''; ?>"><br>
     </div>
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="category_name">Category:</label>
         <input type="text" id="category_name" name="category_name" value="<?php echo isset($product['category_name']) ? htmlspecialchars($product['category_name']) : ''; ?>"><br>
-    </div>
+    </div> -->
     <div class="form-group">
-        <label for="image_url">Image URL:</label>
-        <input type="text" id="image_url" name="image_url" value="<?php echo isset($product['image_url']) ? htmlspecialchars($product['image_url']) : ''; ?>"><br>
-    </div>
+            <label for="category_name">Category:</label>
+            <select name="category_name" id="category_name" required>
+                <?php
+                require_once __DIR__ . '/../../../utilities/db_connection.php';
+                $stmt = $conn->prepare("SELECT name FROM categories");
+                $stmt->execute();
+                $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($categories as $category) {
+                    echo "<option value=\"{$category['name']}\">{$category['name']}</option>";
+                }
+                ?>
+            </select>
+            <a href="../category/create.php">Add Category</a>
+        </div>
+   
     <div class="form-group">
         <label for="stock">Stock:</label>
         <input type="text" id="stock" name="stock" value="<?php echo isset($product['stock']) ? htmlspecialchars($product['stock']) : ''; ?>"><br>
     </div>
+    <div class="form-group">
+            <label for="image">Image</label>
+            <input type="file" name="image" id="image" accept="image/*" required>
+        </div>
     
         <button type="submit">Update</button>
         <a href="get.php"><button type="button" class="back">Back</button></a>

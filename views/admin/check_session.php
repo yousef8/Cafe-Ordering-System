@@ -39,6 +39,7 @@ if (!isset($_SESSION['user_id'])) {
         $allowedUserPages = array(
             '/Cafe-Ordering-System/views/user/home.php',
             '/Cafe-Ordering-System/views/user/user_orders.php',
+
         );
 
         if (!in_array($requestedPage, $allowedUserPages)) {
