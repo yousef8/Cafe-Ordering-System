@@ -12,7 +12,7 @@ class User
     {
         $password = password_hash($data['password'], PASSWORD_DEFAULT);
         $stmt = $this->conn->prepare("INSERT INTO users (first_name, last_name, email, password, image_url, room_name, is_admin) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        
+
         $stmt->bindParam(1, $data['first_name']);
         $stmt->bindParam(2, $data['last_name']);
         $stmt->bindParam(3, $data['email']);
@@ -20,7 +20,7 @@ class User
         $stmt->bindParam(5, $data['image_url']);
         $stmt->bindParam(6, $data['room_name']);
         $stmt->bindParam(7, $data['is_admin']);
-        
+
         if ($stmt->execute()) {
             return true;
         } else {
@@ -48,7 +48,6 @@ class User
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
         return $row['total_count'];
-
     }
 
     public function getUserById($userId)
@@ -57,34 +56,34 @@ class User
         $stmt->bindParam(1, $userId);
         $stmt->execute();
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-        
+
         return $user ? $user : null;
     }
 
     public function updateUser($userId, $data)
-{
-    $stmt = $this->conn->prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?, image_url = ?, room_name = ? WHERE id = ?");
-    
-    $stmt->bindParam(1, $data['first_name']);
-    $stmt->bindParam(2, $data['last_name']);
-    $stmt->bindParam(3, $data['email']);
-    $stmt->bindParam(4, $data['image_url']);
-    $stmt->bindParam(5, $data['room_name']);
-    $stmt->bindParam(6, $userId);
-    
-    if ($stmt->execute()) {
-        return true;
-    } else {
-        return false;
+    {
+        $stmt = $this->conn->prepare("UPDATE users SET first_name = ?, last_name = ?, email = ?, image_url = ?, room_name = ? WHERE id = ?");
+
+        $stmt->bindParam(1, $data['first_name']);
+        $stmt->bindParam(2, $data['last_name']);
+        $stmt->bindParam(3, $data['email']);
+        $stmt->bindParam(4, $data['image_url']);
+        $stmt->bindParam(5, $data['room_name']);
+        $stmt->bindParam(6, $userId);
+
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
     }
-}
 
 
     public function deleteUser($userId)
     {
         $stmt = $this->conn->prepare("DELETE FROM users WHERE id = ?");
         $stmt->bindParam(1, $userId);
-        
+
         if ($stmt->execute()) {
             return true;
         } else {
@@ -93,20 +92,17 @@ class User
     }
 
     public function login($email, $password)
-{
-    $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
-    $stmt->execute([$email]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($user && password_verify($password, $user['password'])) {
-        // if ($user && $password === $user['password']){
+        if ($user && password_verify($password, $user['password'])) {
+            // if ($user && $password === $user['password']) {
 
-        return $user;
-    } else {
-        return false;
+            return $user;
+        } else {
+            return false;
+        }
     }
-    
 }
-
-}
-?>
